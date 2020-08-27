@@ -1,0 +1,402 @@
+2020-08-12 16:40:05,267|INFO:start
+2020-08-12 16:40:09,155|INFO:end
+2020-08-12 16:52:30,455|INFO:start
+2020-08-12 16:52:57,819|INFO:start
+2020-08-12 16:53:00,488|INFO:2020-08-12 16:52:59 epoch 1, step 1, loss: 4.444, global_step: 1
+2020-08-12 16:53:00,506|INFO:2020-08-12 16:53:00 epoch 2, step 1, loss: 4.102, global_step: 2
+2020-08-12 16:53:00,525|INFO:2020-08-12 16:53:00 epoch 3, step 1, loss: 3.629, global_step: 3
+2020-08-12 16:53:00,547|INFO:2020-08-12 16:53:00 epoch 4, step 1, loss: 3.423, global_step: 4
+2020-08-12 16:53:00,568|INFO:2020-08-12 16:53:00 epoch 5, step 1, loss: 3.089, global_step: 5
+2020-08-12 16:53:00,588|INFO:2020-08-12 16:53:00 epoch 6, step 1, loss: 2.655, global_step: 6
+2020-08-12 16:53:00,622|INFO:2020-08-12 16:53:00 epoch 7, step 1, loss: 2.536, global_step: 7
+2020-08-12 16:53:00,642|INFO:2020-08-12 16:53:00 epoch 8, step 1, loss: 2.45, global_step: 8
+2020-08-12 16:53:00,663|INFO:2020-08-12 16:53:00 epoch 9, step 1, loss: 2.112, global_step: 9
+2020-08-12 16:53:00,682|INFO:2020-08-12 16:53:00 epoch 10, step 1, loss: 2.021, global_step: 10
+2020-08-12 16:53:00,701|INFO:2020-08-12 16:53:00 epoch 11, step 1, loss: 1.832, global_step: 11
+2020-08-12 16:53:00,723|INFO:2020-08-12 16:53:00 epoch 12, step 1, loss: 1.319, global_step: 12
+2020-08-12 16:53:00,745|INFO:2020-08-12 16:53:00 epoch 13, step 1, loss: 1.444, global_step: 13
+2020-08-12 16:53:00,769|INFO:2020-08-12 16:53:00 epoch 14, step 1, loss: 1.385, global_step: 14
+2020-08-12 16:53:00,794|INFO:2020-08-12 16:53:00 epoch 15, step 1, loss: 0.8335, global_step: 15
+2020-08-12 16:53:00,817|INFO:2020-08-12 16:53:00 epoch 16, step 1, loss: 0.8269, global_step: 16
+2020-08-12 16:53:00,838|INFO:2020-08-12 16:53:00 epoch 17, step 1, loss: 0.6098, global_step: 17
+2020-08-12 16:53:00,859|INFO:2020-08-12 16:53:00 epoch 18, step 1, loss: 0.5335, global_step: 18
+2020-08-12 16:53:00,879|INFO:2020-08-12 16:53:00 epoch 19, step 1, loss: 0.3892, global_step: 19
+2020-08-12 16:53:00,898|INFO:2020-08-12 16:53:00 epoch 20, step 1, loss: 0.321, global_step: 20
+2020-08-12 16:53:00,920|INFO:2020-08-12 16:53:00 epoch 21, step 1, loss: 0.2569, global_step: 21
+2020-08-12 16:53:00,941|INFO:2020-08-12 16:53:00 epoch 22, step 1, loss: 0.247, global_step: 22
+2020-08-12 16:53:00,965|INFO:2020-08-12 16:53:00 epoch 23, step 1, loss: 0.2285, global_step: 23
+2020-08-12 16:53:00,989|INFO:2020-08-12 16:53:00 epoch 24, step 1, loss: 0.1448, global_step: 24
+2020-08-12 16:53:01,012|INFO:2020-08-12 16:53:00 epoch 25, step 1, loss: 0.1347, global_step: 25
+2020-08-12 16:53:01,034|INFO:2020-08-12 16:53:01 epoch 26, step 1, loss: 0.1735, global_step: 26
+2020-08-12 16:53:01,055|INFO:2020-08-12 16:53:01 epoch 27, step 1, loss: 0.07128, global_step: 27
+2020-08-12 16:53:01,075|INFO:2020-08-12 16:53:01 epoch 28, step 1, loss: 0.03837, global_step: 28
+2020-08-12 16:53:01,095|INFO:2020-08-12 16:53:01 epoch 29, step 1, loss: 0.04181, global_step: 29
+2020-08-12 16:53:01,116|INFO:2020-08-12 16:53:01 epoch 30, step 1, loss: 0.05861, global_step: 30
+2020-08-12 16:53:01,138|INFO:2020-08-12 16:53:01 epoch 31, step 1, loss: 0.01785, global_step: 31
+2020-08-12 16:53:01,161|INFO:2020-08-12 16:53:01 epoch 32, step 1, loss: 0.04882, global_step: 32
+2020-08-12 16:53:01,186|INFO:2020-08-12 16:53:01 epoch 33, step 1, loss: 0.04196, global_step: 33
+2020-08-12 16:53:01,211|INFO:2020-08-12 16:53:01 epoch 34, step 1, loss: 0.01983, global_step: 34
+2020-08-12 16:53:01,236|INFO:2020-08-12 16:53:01 epoch 35, step 1, loss: 0.02402, global_step: 35
+2020-08-12 16:53:01,258|INFO:2020-08-12 16:53:01 epoch 36, step 1, loss: 0.03023, global_step: 36
+2020-08-12 16:53:01,280|INFO:2020-08-12 16:53:01 epoch 37, step 1, loss: 0.01077, global_step: 37
+2020-08-12 16:53:01,301|INFO:2020-08-12 16:53:01 epoch 38, step 1, loss: 0.008694, global_step: 38
+2020-08-12 16:53:01,322|INFO:2020-08-12 16:53:01 epoch 39, step 1, loss: 0.01331, global_step: 39
+2020-08-12 16:53:01,348|INFO:2020-08-12 16:53:01 epoch 40, step 1, loss: 0.009134, global_step: 40
+2020-08-12 16:53:01,585|INFO:end
+2020-08-25 10:06:35,536|INFO:epoch:0, batch: 1, current loss: 1.373910
+2020-08-25 10:06:35,540|INFO:epoch:1, batch: 1, current loss: 1.373278
+2020-08-25 10:06:35,543|INFO:epoch:2, batch: 1, current loss: 1.372647
+2020-08-25 10:06:35,547|INFO:epoch:3, batch: 1, current loss: 1.372018
+2020-08-25 10:06:35,550|INFO:epoch:4, batch: 1, current loss: 1.371389
+2020-08-25 10:06:35,553|INFO:epoch:5, batch: 1, current loss: 1.370762
+2020-08-25 10:06:35,557|INFO:epoch:6, batch: 1, current loss: 1.370136
+2020-08-25 10:06:35,560|INFO:epoch:7, batch: 1, current loss: 1.369512
+2020-08-25 10:06:35,564|INFO:epoch:8, batch: 1, current loss: 1.368888
+2020-08-25 10:06:35,567|INFO:epoch:9, batch: 1, current loss: 1.368266
+2020-08-25 10:06:35,571|INFO:epoch:10, batch: 1, current loss: 1.367645
+2020-08-25 10:06:35,574|INFO:epoch:11, batch: 1, current loss: 1.367026
+2020-08-25 10:06:35,579|INFO:epoch:12, batch: 1, current loss: 1.366407
+2020-08-25 10:06:35,582|INFO:epoch:13, batch: 1, current loss: 1.365790
+2020-08-25 10:06:35,586|INFO:epoch:14, batch: 1, current loss: 1.365174
+2020-08-25 10:06:35,589|INFO:epoch:15, batch: 1, current loss: 1.364559
+2020-08-25 10:06:35,593|INFO:epoch:16, batch: 1, current loss: 1.363945
+2020-08-25 10:06:35,597|INFO:epoch:17, batch: 1, current loss: 1.363333
+2020-08-25 10:06:35,601|INFO:epoch:18, batch: 1, current loss: 1.362722
+2020-08-25 10:06:35,604|INFO:epoch:19, batch: 1, current loss: 1.362111
+2020-08-25 10:06:35,608|INFO:epoch:20, batch: 1, current loss: 1.361503
+2020-08-25 10:06:35,612|INFO:epoch:21, batch: 1, current loss: 1.360895
+2020-08-25 10:06:35,616|INFO:epoch:22, batch: 1, current loss: 1.360288
+2020-08-25 10:06:35,620|INFO:epoch:23, batch: 1, current loss: 1.359683
+2020-08-25 10:06:35,624|INFO:epoch:24, batch: 1, current loss: 1.359079
+2020-08-25 10:06:35,628|INFO:epoch:25, batch: 1, current loss: 1.358476
+2020-08-25 10:06:35,632|INFO:epoch:26, batch: 1, current loss: 1.357874
+2020-08-25 10:06:35,636|INFO:epoch:27, batch: 1, current loss: 1.357273
+2020-08-25 10:06:35,639|INFO:epoch:28, batch: 1, current loss: 1.356674
+2020-08-25 10:06:35,644|INFO:epoch:29, batch: 1, current loss: 1.356075
+2020-08-25 10:06:35,648|INFO:epoch:30, batch: 1, current loss: 1.355478
+2020-08-25 10:06:35,652|INFO:epoch:31, batch: 1, current loss: 1.354882
+2020-08-25 10:06:35,656|INFO:epoch:32, batch: 1, current loss: 1.354287
+2020-08-25 10:06:35,660|INFO:epoch:33, batch: 1, current loss: 1.353693
+2020-08-25 10:06:35,664|INFO:epoch:34, batch: 1, current loss: 1.353101
+2020-08-25 10:06:35,668|INFO:epoch:35, batch: 1, current loss: 1.352509
+2020-08-25 10:06:35,672|INFO:epoch:36, batch: 1, current loss: 1.351919
+2020-08-25 10:06:35,676|INFO:epoch:37, batch: 1, current loss: 1.351329
+2020-08-25 10:06:35,681|INFO:epoch:38, batch: 1, current loss: 1.350741
+2020-08-25 10:06:35,685|INFO:epoch:39, batch: 1, current loss: 1.350154
+2020-08-25 10:06:35,689|INFO:epoch:40, batch: 1, current loss: 1.349568
+2020-08-25 10:06:35,693|INFO:epoch:41, batch: 1, current loss: 1.348983
+2020-08-25 10:06:35,697|INFO:epoch:42, batch: 1, current loss: 1.348400
+2020-08-25 10:06:35,701|INFO:epoch:43, batch: 1, current loss: 1.347817
+2020-08-25 10:06:35,706|INFO:epoch:44, batch: 1, current loss: 1.347236
+2020-08-25 10:06:35,710|INFO:epoch:45, batch: 1, current loss: 1.346655
+2020-08-25 10:06:35,715|INFO:epoch:46, batch: 1, current loss: 1.346076
+2020-08-25 10:06:35,719|INFO:epoch:47, batch: 1, current loss: 1.345498
+2020-08-25 10:06:35,723|INFO:epoch:48, batch: 1, current loss: 1.344921
+2020-08-25 10:06:35,727|INFO:epoch:49, batch: 1, current loss: 1.344345
+2020-08-25 10:06:36,609|INFO:eval acc:0.85
+2020-08-25 10:07:21,018|INFO:epoch:0, batch: 1, current loss: 1.170833
+2020-08-25 10:07:21,023|INFO:epoch:1, batch: 1, current loss: 1.170349
+2020-08-25 10:07:21,027|INFO:epoch:2, batch: 1, current loss: 1.169867
+2020-08-25 10:07:21,030|INFO:epoch:3, batch: 1, current loss: 1.169384
+2020-08-25 10:07:21,034|INFO:epoch:4, batch: 1, current loss: 1.168903
+2020-08-25 10:07:21,038|INFO:epoch:5, batch: 1, current loss: 1.168422
+2020-08-25 10:07:21,042|INFO:epoch:6, batch: 1, current loss: 1.167941
+2020-08-25 10:07:21,045|INFO:epoch:7, batch: 1, current loss: 1.167462
+2020-08-25 10:07:21,049|INFO:epoch:8, batch: 1, current loss: 1.166982
+2020-08-25 10:07:21,052|INFO:epoch:9, batch: 1, current loss: 1.166504
+2020-08-25 10:07:21,055|INFO:epoch:10, batch: 1, current loss: 1.166026
+2020-08-25 10:07:21,059|INFO:epoch:11, batch: 1, current loss: 1.165549
+2020-08-25 10:07:21,063|INFO:epoch:12, batch: 1, current loss: 1.165072
+2020-08-25 10:07:21,066|INFO:epoch:13, batch: 1, current loss: 1.164596
+2020-08-25 10:07:21,070|INFO:epoch:14, batch: 1, current loss: 1.164120
+2020-08-25 10:07:21,074|INFO:epoch:15, batch: 1, current loss: 1.163645
+2020-08-25 10:07:21,077|INFO:epoch:16, batch: 1, current loss: 1.163171
+2020-08-25 10:07:21,081|INFO:epoch:17, batch: 1, current loss: 1.162697
+2020-08-25 10:07:21,084|INFO:epoch:18, batch: 1, current loss: 1.162224
+2020-08-25 10:07:21,088|INFO:epoch:19, batch: 1, current loss: 1.161752
+2020-08-25 10:07:21,091|INFO:epoch:20, batch: 1, current loss: 1.161280
+2020-08-25 10:07:21,095|INFO:epoch:21, batch: 1, current loss: 1.160808
+2020-08-25 10:07:21,099|INFO:epoch:22, batch: 1, current loss: 1.160338
+2020-08-25 10:07:21,102|INFO:epoch:23, batch: 1, current loss: 1.159867
+2020-08-25 10:07:21,106|INFO:epoch:24, batch: 1, current loss: 1.159398
+2020-08-25 10:07:21,109|INFO:epoch:25, batch: 1, current loss: 1.158929
+2020-08-25 10:07:21,113|INFO:epoch:26, batch: 1, current loss: 1.158460
+2020-08-25 10:07:21,117|INFO:epoch:27, batch: 1, current loss: 1.157993
+2020-08-25 10:07:21,120|INFO:epoch:28, batch: 1, current loss: 1.157525
+2020-08-25 10:07:21,124|INFO:epoch:29, batch: 1, current loss: 1.157059
+2020-08-25 10:07:21,128|INFO:epoch:30, batch: 1, current loss: 1.156592
+2020-08-25 10:07:21,132|INFO:epoch:31, batch: 1, current loss: 1.156127
+2020-08-25 10:07:21,135|INFO:epoch:32, batch: 1, current loss: 1.155662
+2020-08-25 10:07:21,139|INFO:epoch:33, batch: 1, current loss: 1.155197
+2020-08-25 10:07:21,143|INFO:epoch:34, batch: 1, current loss: 1.154734
+2020-08-25 10:07:21,146|INFO:epoch:35, batch: 1, current loss: 1.154270
+2020-08-25 10:07:21,150|INFO:epoch:36, batch: 1, current loss: 1.153808
+2020-08-25 10:07:21,153|INFO:epoch:37, batch: 1, current loss: 1.153346
+2020-08-25 10:07:21,157|INFO:epoch:38, batch: 1, current loss: 1.152884
+2020-08-25 10:07:21,161|INFO:epoch:39, batch: 1, current loss: 1.152423
+2020-08-25 10:07:21,165|INFO:epoch:40, batch: 1, current loss: 1.151962
+2020-08-25 10:07:21,168|INFO:epoch:41, batch: 1, current loss: 1.151502
+2020-08-25 10:07:21,172|INFO:epoch:42, batch: 1, current loss: 1.151043
+2020-08-25 10:07:21,176|INFO:epoch:43, batch: 1, current loss: 1.150584
+2020-08-25 10:07:21,180|INFO:epoch:44, batch: 1, current loss: 1.150126
+2020-08-25 10:07:21,185|INFO:epoch:45, batch: 1, current loss: 1.149668
+2020-08-25 10:07:21,189|INFO:epoch:46, batch: 1, current loss: 1.149212
+2020-08-25 10:07:21,193|INFO:epoch:47, batch: 1, current loss: 1.148755
+2020-08-25 10:07:21,197|INFO:epoch:48, batch: 1, current loss: 1.148299
+2020-08-25 10:07:21,201|INFO:epoch:49, batch: 1, current loss: 1.147843
+2020-08-25 10:07:21,815|INFO:eval acc:0.85
+2020-08-25 10:11:38,602|INFO:epoch:0, batch: 1, current loss: 0.993592
+2020-08-25 10:11:38,606|INFO:epoch:1, batch: 1, current loss: 0.993365
+2020-08-25 10:11:38,609|INFO:epoch:2, batch: 1, current loss: 0.993138
+2020-08-25 10:11:38,613|INFO:epoch:3, batch: 1, current loss: 0.992911
+2020-08-25 10:11:38,616|INFO:epoch:4, batch: 1, current loss: 0.992684
+2020-08-25 10:11:38,620|INFO:epoch:5, batch: 1, current loss: 0.992457
+2020-08-25 10:11:38,623|INFO:epoch:6, batch: 1, current loss: 0.992230
+2020-08-25 10:11:38,627|INFO:epoch:7, batch: 1, current loss: 0.992004
+2020-08-25 10:11:38,630|INFO:epoch:8, batch: 1, current loss: 0.991777
+2020-08-25 10:11:38,633|INFO:epoch:9, batch: 1, current loss: 0.991551
+2020-08-25 10:11:38,637|INFO:epoch:10, batch: 1, current loss: 0.991324
+2020-08-25 10:11:38,640|INFO:epoch:11, batch: 1, current loss: 0.991098
+2020-08-25 10:11:38,644|INFO:epoch:12, batch: 1, current loss: 0.990872
+2020-08-25 10:11:38,648|INFO:epoch:13, batch: 1, current loss: 0.990646
+2020-08-25 10:11:38,651|INFO:epoch:14, batch: 1, current loss: 0.990420
+2020-08-25 10:11:38,655|INFO:epoch:15, batch: 1, current loss: 0.990194
+2020-08-25 10:11:38,659|INFO:epoch:16, batch: 1, current loss: 0.989968
+2020-08-25 10:11:38,662|INFO:epoch:17, batch: 1, current loss: 0.989742
+2020-08-25 10:11:38,666|INFO:epoch:18, batch: 1, current loss: 0.989517
+2020-08-25 10:11:38,670|INFO:epoch:19, batch: 1, current loss: 0.989291
+2020-08-25 10:11:38,674|INFO:epoch:20, batch: 1, current loss: 0.989066
+2020-08-25 10:11:38,677|INFO:epoch:21, batch: 1, current loss: 0.988840
+2020-08-25 10:11:38,681|INFO:epoch:22, batch: 1, current loss: 0.988615
+2020-08-25 10:11:38,686|INFO:epoch:23, batch: 1, current loss: 0.988390
+2020-08-25 10:11:38,690|INFO:epoch:24, batch: 1, current loss: 0.988165
+2020-08-25 10:11:38,694|INFO:epoch:25, batch: 1, current loss: 0.987939
+2020-08-25 10:11:38,698|INFO:epoch:26, batch: 1, current loss: 0.987715
+2020-08-25 10:11:38,703|INFO:epoch:27, batch: 1, current loss: 0.987490
+2020-08-25 10:11:38,707|INFO:epoch:28, batch: 1, current loss: 0.987265
+2020-08-25 10:11:38,711|INFO:epoch:29, batch: 1, current loss: 0.987040
+2020-08-25 10:11:38,714|INFO:epoch:30, batch: 1, current loss: 0.986815
+2020-08-25 10:11:38,719|INFO:epoch:31, batch: 1, current loss: 0.986591
+2020-08-25 10:11:38,723|INFO:epoch:32, batch: 1, current loss: 0.986367
+2020-08-25 10:11:38,726|INFO:epoch:33, batch: 1, current loss: 0.986142
+2020-08-25 10:11:38,730|INFO:epoch:34, batch: 1, current loss: 0.985918
+2020-08-25 10:11:38,734|INFO:epoch:35, batch: 1, current loss: 0.985694
+2020-08-25 10:11:38,738|INFO:epoch:36, batch: 1, current loss: 0.985469
+2020-08-25 10:11:38,742|INFO:epoch:37, batch: 1, current loss: 0.985245
+2020-08-25 10:11:38,745|INFO:epoch:38, batch: 1, current loss: 0.985021
+2020-08-25 10:11:38,749|INFO:epoch:39, batch: 1, current loss: 0.984798
+2020-08-25 10:11:38,753|INFO:epoch:40, batch: 1, current loss: 0.984574
+2020-08-25 10:11:38,757|INFO:epoch:41, batch: 1, current loss: 0.984350
+2020-08-25 10:11:38,761|INFO:epoch:42, batch: 1, current loss: 0.984126
+2020-08-25 10:11:38,764|INFO:epoch:43, batch: 1, current loss: 0.983903
+2020-08-25 10:11:38,768|INFO:epoch:44, batch: 1, current loss: 0.983679
+2020-08-25 10:11:38,772|INFO:epoch:45, batch: 1, current loss: 0.983456
+2020-08-25 10:11:38,776|INFO:epoch:46, batch: 1, current loss: 0.983233
+2020-08-25 10:11:38,780|INFO:epoch:47, batch: 1, current loss: 0.983009
+2020-08-25 10:11:38,784|INFO:epoch:48, batch: 1, current loss: 0.982786
+2020-08-25 10:11:38,788|INFO:epoch:49, batch: 1, current loss: 0.982563
+2020-08-25 10:11:39,374|INFO:eval acc:0.9
+2020-08-25 10:12:03,369|INFO:epoch:0, batch: 1, current loss: 1.006739
+2020-08-25 10:12:03,373|INFO:epoch:1, batch: 1, current loss: 1.006284
+2020-08-25 10:12:03,376|INFO:epoch:2, batch: 1, current loss: 1.005829
+2020-08-25 10:12:03,379|INFO:epoch:3, batch: 1, current loss: 1.005375
+2020-08-25 10:12:03,383|INFO:epoch:4, batch: 1, current loss: 1.004921
+2020-08-25 10:12:03,386|INFO:epoch:5, batch: 1, current loss: 1.004468
+2020-08-25 10:12:03,390|INFO:epoch:6, batch: 1, current loss: 1.004015
+2020-08-25 10:12:03,393|INFO:epoch:7, batch: 1, current loss: 1.003563
+2020-08-25 10:12:03,396|INFO:epoch:8, batch: 1, current loss: 1.003111
+2020-08-25 10:12:03,400|INFO:epoch:9, batch: 1, current loss: 1.002659
+2020-08-25 10:12:03,402|INFO:epoch:10, batch: 1, current loss: 1.002208
+2020-08-25 10:12:03,406|INFO:epoch:11, batch: 1, current loss: 1.001758
+2020-08-25 10:12:03,409|INFO:epoch:12, batch: 1, current loss: 1.001308
+2020-08-25 10:12:03,413|INFO:epoch:13, batch: 1, current loss: 1.000858
+2020-08-25 10:12:03,416|INFO:epoch:14, batch: 1, current loss: 1.000409
+2020-08-25 10:12:03,420|INFO:epoch:15, batch: 1, current loss: 0.999960
+2020-08-25 10:12:03,424|INFO:epoch:16, batch: 1, current loss: 0.999512
+2020-08-25 10:12:03,427|INFO:epoch:17, batch: 1, current loss: 0.999064
+2020-08-25 10:12:03,430|INFO:epoch:18, batch: 1, current loss: 0.998617
+2020-08-25 10:12:03,434|INFO:epoch:19, batch: 1, current loss: 0.998170
+2020-08-25 10:12:03,438|INFO:epoch:20, batch: 1, current loss: 0.997723
+2020-08-25 10:12:03,442|INFO:epoch:21, batch: 1, current loss: 0.997277
+2020-08-25 10:12:03,445|INFO:epoch:22, batch: 1, current loss: 0.996832
+2020-08-25 10:12:03,449|INFO:epoch:23, batch: 1, current loss: 0.996387
+2020-08-25 10:12:03,453|INFO:epoch:24, batch: 1, current loss: 0.995942
+2020-08-25 10:12:03,457|INFO:epoch:25, batch: 1, current loss: 0.995498
+2020-08-25 10:12:03,460|INFO:epoch:26, batch: 1, current loss: 0.995054
+2020-08-25 10:12:03,464|INFO:epoch:27, batch: 1, current loss: 0.994611
+2020-08-25 10:12:03,468|INFO:epoch:28, batch: 1, current loss: 0.994168
+2020-08-25 10:12:03,472|INFO:epoch:29, batch: 1, current loss: 0.993726
+2020-08-25 10:12:03,476|INFO:epoch:30, batch: 1, current loss: 0.993284
+2020-08-25 10:12:03,479|INFO:epoch:31, batch: 1, current loss: 0.992842
+2020-08-25 10:12:03,484|INFO:epoch:32, batch: 1, current loss: 0.992401
+2020-08-25 10:12:03,487|INFO:epoch:33, batch: 1, current loss: 0.991961
+2020-08-25 10:12:03,491|INFO:epoch:34, batch: 1, current loss: 0.991520
+2020-08-25 10:12:03,494|INFO:epoch:35, batch: 1, current loss: 0.991081
+2020-08-25 10:12:03,498|INFO:epoch:36, batch: 1, current loss: 0.990641
+2020-08-25 10:12:03,503|INFO:epoch:37, batch: 1, current loss: 0.990202
+2020-08-25 10:12:03,507|INFO:epoch:38, batch: 1, current loss: 0.989764
+2020-08-25 10:12:03,511|INFO:epoch:39, batch: 1, current loss: 0.989326
+2020-08-25 10:12:03,516|INFO:epoch:40, batch: 1, current loss: 0.988889
+2020-08-25 10:12:03,520|INFO:epoch:41, batch: 1, current loss: 0.988451
+2020-08-25 10:12:03,524|INFO:epoch:42, batch: 1, current loss: 0.988015
+2020-08-25 10:12:03,528|INFO:epoch:43, batch: 1, current loss: 0.987579
+2020-08-25 10:12:03,532|INFO:epoch:44, batch: 1, current loss: 0.987143
+2020-08-25 10:12:03,536|INFO:epoch:45, batch: 1, current loss: 0.986707
+2020-08-25 10:12:03,540|INFO:epoch:46, batch: 1, current loss: 0.986273
+2020-08-25 10:12:03,543|INFO:epoch:47, batch: 1, current loss: 0.985838
+2020-08-25 10:12:03,547|INFO:epoch:48, batch: 1, current loss: 0.985404
+2020-08-25 10:12:03,552|INFO:epoch:49, batch: 1, current loss: 0.984970
+2020-08-25 10:12:04,107|INFO:eval acc:0.9
+2020-08-25 10:12:57,068|INFO:epoch:0, batch: 1, current loss: 1.029853
+2020-08-25 10:12:57,072|INFO:epoch:1, batch: 1, current loss: 1.029422
+2020-08-25 10:12:57,075|INFO:epoch:2, batch: 1, current loss: 1.028993
+2020-08-25 10:12:57,079|INFO:epoch:3, batch: 1, current loss: 1.028564
+2020-08-25 10:12:57,082|INFO:epoch:4, batch: 1, current loss: 1.028136
+2020-08-25 10:12:57,086|INFO:epoch:5, batch: 1, current loss: 1.027709
+2020-08-25 10:12:57,089|INFO:epoch:6, batch: 1, current loss: 1.027282
+2020-08-25 10:12:57,092|INFO:epoch:7, batch: 1, current loss: 1.026855
+2020-08-25 10:12:57,097|INFO:epoch:8, batch: 1, current loss: 1.026430
+2020-08-25 10:12:57,100|INFO:epoch:9, batch: 1, current loss: 1.026005
+2020-08-25 10:12:57,104|INFO:epoch:10, batch: 1, current loss: 1.025580
+2020-08-25 10:12:57,107|INFO:epoch:11, batch: 1, current loss: 1.025157
+2020-08-25 10:12:57,111|INFO:epoch:12, batch: 1, current loss: 1.024734
+2020-08-25 10:12:57,115|INFO:epoch:13, batch: 1, current loss: 1.024311
+2020-08-25 10:12:57,119|INFO:epoch:14, batch: 1, current loss: 1.023889
+2020-08-25 10:12:57,122|INFO:epoch:15, batch: 1, current loss: 1.023468
+2020-08-25 10:12:57,126|INFO:epoch:16, batch: 1, current loss: 1.023048
+2020-08-25 10:12:57,130|INFO:epoch:17, batch: 1, current loss: 1.022628
+2020-08-25 10:12:57,134|INFO:epoch:18, batch: 1, current loss: 1.022208
+2020-08-25 10:12:57,138|INFO:epoch:19, batch: 1, current loss: 1.021790
+2020-08-25 10:12:57,141|INFO:epoch:20, batch: 1, current loss: 1.021372
+2020-08-25 10:12:57,145|INFO:epoch:21, batch: 1, current loss: 1.020954
+2020-08-25 10:12:57,149|INFO:epoch:22, batch: 1, current loss: 1.020537
+2020-08-25 10:12:57,153|INFO:epoch:23, batch: 1, current loss: 1.020121
+2020-08-25 10:12:57,157|INFO:epoch:24, batch: 1, current loss: 1.019706
+2020-08-25 10:12:57,161|INFO:epoch:25, batch: 1, current loss: 1.019291
+2020-08-25 10:12:57,165|INFO:epoch:26, batch: 1, current loss: 1.018876
+2020-08-25 10:12:57,169|INFO:epoch:27, batch: 1, current loss: 1.018462
+2020-08-25 10:12:57,173|INFO:epoch:28, batch: 1, current loss: 1.018049
+2020-08-25 10:12:57,177|INFO:epoch:29, batch: 1, current loss: 1.017637
+2020-08-25 10:12:57,181|INFO:epoch:30, batch: 1, current loss: 1.017225
+2020-08-25 10:12:57,185|INFO:epoch:31, batch: 1, current loss: 1.016813
+2020-08-25 10:12:57,189|INFO:epoch:32, batch: 1, current loss: 1.016402
+2020-08-25 10:12:57,193|INFO:epoch:33, batch: 1, current loss: 1.015992
+2020-08-25 10:12:57,197|INFO:epoch:34, batch: 1, current loss: 1.015583
+2020-08-25 10:12:57,201|INFO:epoch:35, batch: 1, current loss: 1.015174
+2020-08-25 10:12:57,205|INFO:epoch:36, batch: 1, current loss: 1.014765
+2020-08-25 10:12:57,209|INFO:epoch:37, batch: 1, current loss: 1.014357
+2020-08-25 10:12:57,214|INFO:epoch:38, batch: 1, current loss: 1.013950
+2020-08-25 10:12:57,218|INFO:epoch:39, batch: 1, current loss: 1.013544
+2020-08-25 10:12:57,222|INFO:epoch:40, batch: 1, current loss: 1.013137
+2020-08-25 10:12:57,226|INFO:epoch:41, batch: 1, current loss: 1.012732
+2020-08-25 10:12:57,231|INFO:epoch:42, batch: 1, current loss: 1.012327
+2020-08-25 10:12:57,235|INFO:epoch:43, batch: 1, current loss: 1.011923
+2020-08-25 10:12:57,239|INFO:epoch:44, batch: 1, current loss: 1.011519
+2020-08-25 10:12:57,244|INFO:epoch:45, batch: 1, current loss: 1.011116
+2020-08-25 10:12:57,248|INFO:epoch:46, batch: 1, current loss: 1.010713
+2020-08-25 10:12:57,252|INFO:epoch:47, batch: 1, current loss: 1.010311
+2020-08-25 10:12:57,256|INFO:epoch:48, batch: 1, current loss: 1.009910
+2020-08-25 10:12:57,261|INFO:epoch:49, batch: 1, current loss: 1.009508
+2020-08-25 10:12:57,972|INFO:eval acc:0.85
+2020-08-25 14:39:59,344|INFO:epoch:0, batch: 1, current loss: 1.320568
+2020-08-25 14:39:59,350|INFO:epoch:1, batch: 1, current loss: 1.318332
+2020-08-25 14:39:59,357|INFO:epoch:2, batch: 1, current loss: 1.316101
+2020-08-25 14:39:59,363|INFO:epoch:3, batch: 1, current loss: 1.313875
+2020-08-25 14:39:59,369|INFO:epoch:4, batch: 1, current loss: 1.311654
+2020-08-25 14:39:59,376|INFO:epoch:5, batch: 1, current loss: 1.309438
+2020-08-25 14:39:59,382|INFO:epoch:6, batch: 1, current loss: 1.307227
+2020-08-25 14:39:59,388|INFO:epoch:7, batch: 1, current loss: 1.305021
+2020-08-25 14:39:59,394|INFO:epoch:8, batch: 1, current loss: 1.302820
+2020-08-25 14:39:59,401|INFO:epoch:9, batch: 1, current loss: 1.300624
+2020-08-25 14:39:59,407|INFO:epoch:10, batch: 1, current loss: 1.298432
+2020-08-25 14:39:59,413|INFO:epoch:11, batch: 1, current loss: 1.296246
+2020-08-25 14:39:59,419|INFO:epoch:12, batch: 1, current loss: 1.294065
+2020-08-25 14:39:59,426|INFO:epoch:13, batch: 1, current loss: 1.291888
+2020-08-25 14:39:59,432|INFO:epoch:14, batch: 1, current loss: 1.289717
+2020-08-25 14:39:59,438|INFO:epoch:15, batch: 1, current loss: 1.287550
+2020-08-25 14:39:59,445|INFO:epoch:16, batch: 1, current loss: 1.285389
+2020-08-25 14:39:59,451|INFO:epoch:17, batch: 1, current loss: 1.283232
+2020-08-25 14:39:59,458|INFO:epoch:18, batch: 1, current loss: 1.281080
+2020-08-25 14:39:59,464|INFO:epoch:19, batch: 1, current loss: 1.278933
+2020-08-25 14:39:59,471|INFO:epoch:20, batch: 1, current loss: 1.276790
+2020-08-25 14:39:59,478|INFO:epoch:21, batch: 1, current loss: 1.274653
+2020-08-25 14:39:59,484|INFO:epoch:22, batch: 1, current loss: 1.272520
+2020-08-25 14:39:59,491|INFO:epoch:23, batch: 1, current loss: 1.270392
+2020-08-25 14:39:59,498|INFO:epoch:24, batch: 1, current loss: 1.268269
+2020-08-25 14:39:59,505|INFO:epoch:25, batch: 1, current loss: 1.266151
+2020-08-25 14:39:59,511|INFO:epoch:26, batch: 1, current loss: 1.264037
+2020-08-25 14:39:59,518|INFO:epoch:27, batch: 1, current loss: 1.261928
+2020-08-25 14:39:59,524|INFO:epoch:28, batch: 1, current loss: 1.259824
+2020-08-25 14:39:59,531|INFO:epoch:29, batch: 1, current loss: 1.257725
+2020-08-25 14:39:59,537|INFO:epoch:30, batch: 1, current loss: 1.255630
+2020-08-25 14:39:59,544|INFO:epoch:31, batch: 1, current loss: 1.253540
+2020-08-25 14:39:59,550|INFO:epoch:32, batch: 1, current loss: 1.251455
+2020-08-25 14:39:59,558|INFO:epoch:33, batch: 1, current loss: 1.249374
+2020-08-25 14:39:59,565|INFO:epoch:34, batch: 1, current loss: 1.247298
+2020-08-25 14:39:59,570|INFO:epoch:35, batch: 1, current loss: 1.245227
+2020-08-25 14:39:59,578|INFO:epoch:36, batch: 1, current loss: 1.243160
+2020-08-25 14:39:59,584|INFO:epoch:37, batch: 1, current loss: 1.241098
+2020-08-25 14:39:59,592|INFO:epoch:38, batch: 1, current loss: 1.239040
+2020-08-25 14:39:59,599|INFO:epoch:39, batch: 1, current loss: 1.236987
+2020-08-25 14:39:59,606|INFO:epoch:40, batch: 1, current loss: 1.234939
+2020-08-25 14:39:59,613|INFO:epoch:41, batch: 1, current loss: 1.232895
+2020-08-25 14:39:59,620|INFO:epoch:42, batch: 1, current loss: 1.230856
+2020-08-25 14:39:59,628|INFO:epoch:43, batch: 1, current loss: 1.228822
+2020-08-25 14:39:59,635|INFO:epoch:44, batch: 1, current loss: 1.226792
+2020-08-25 14:39:59,642|INFO:epoch:45, batch: 1, current loss: 1.224766
+2020-08-25 14:39:59,649|INFO:epoch:46, batch: 1, current loss: 1.222745
+2020-08-25 14:39:59,656|INFO:epoch:47, batch: 1, current loss: 1.220729
+2020-08-25 14:39:59,663|INFO:epoch:48, batch: 1, current loss: 1.218717
+2020-08-25 14:39:59,670|INFO:epoch:49, batch: 1, current loss: 1.216710
+2020-08-25 14:40:00,232|INFO:eval acc:0.85
+2020-08-26 13:13:05,315|INFO:epoch:0, batch: 1, current loss: 1.282586
+2020-08-26 13:13:05,323|INFO:epoch:1, batch: 1, current loss: 1.281378
+2020-08-26 13:13:05,330|INFO:epoch:2, batch: 1, current loss: 1.280171
+2020-08-26 13:13:05,338|INFO:epoch:3, batch: 1, current loss: 1.278966
+2020-08-26 13:13:05,345|INFO:epoch:4, batch: 1, current loss: 1.277762
+2020-08-26 13:13:05,353|INFO:epoch:5, batch: 1, current loss: 1.276560
+2020-08-26 13:13:05,360|INFO:epoch:6, batch: 1, current loss: 1.275359
+2020-08-26 13:13:05,369|INFO:epoch:7, batch: 1, current loss: 1.274160
+2020-08-26 13:13:05,376|INFO:epoch:8, batch: 1, current loss: 1.272962
+2020-08-26 13:13:05,383|INFO:epoch:9, batch: 1, current loss: 1.271766
+2020-08-26 13:13:05,391|INFO:epoch:10, batch: 1, current loss: 1.270571
+2020-08-26 13:13:05,399|INFO:epoch:11, batch: 1, current loss: 1.269378
+2020-08-26 13:13:05,407|INFO:epoch:12, batch: 1, current loss: 1.268186
+2020-08-26 13:13:05,415|INFO:epoch:13, batch: 1, current loss: 1.266996
+2020-08-26 13:13:05,423|INFO:epoch:14, batch: 1, current loss: 1.265807
+2020-08-26 13:13:05,432|INFO:epoch:15, batch: 1, current loss: 1.264620
+2020-08-26 13:13:05,440|INFO:epoch:16, batch: 1, current loss: 1.263434
+2020-08-26 13:13:05,448|INFO:epoch:17, batch: 1, current loss: 1.262250
+2020-08-26 13:13:05,457|INFO:epoch:18, batch: 1, current loss: 1.261067
+2020-08-26 13:13:05,465|INFO:epoch:19, batch: 1, current loss: 1.259886
+2020-08-26 13:13:05,473|INFO:epoch:20, batch: 1, current loss: 1.258706
+2020-08-26 13:13:05,482|INFO:epoch:21, batch: 1, current loss: 1.257528
+2020-08-26 13:13:05,490|INFO:epoch:22, batch: 1, current loss: 1.256351
+2020-08-26 13:13:05,499|INFO:epoch:23, batch: 1, current loss: 1.255175
+2020-08-26 13:13:05,507|INFO:epoch:24, batch: 1, current loss: 1.254002
+2020-08-26 13:13:05,516|INFO:epoch:25, batch: 1, current loss: 1.252829
+2020-08-26 13:13:05,525|INFO:epoch:26, batch: 1, current loss: 1.251658
+2020-08-26 13:13:05,534|INFO:epoch:27, batch: 1, current loss: 1.250489
+2020-08-26 13:13:05,542|INFO:epoch:28, batch: 1, current loss: 1.249321
+2020-08-26 13:13:05,553|INFO:epoch:29, batch: 1, current loss: 1.248155
+2020-08-26 13:13:05,562|INFO:epoch:30, batch: 1, current loss: 1.246990
+2020-08-26 13:13:05,571|INFO:epoch:31, batch: 1, current loss: 1.245826
+2020-08-26 13:13:05,580|INFO:epoch:32, batch: 1, current loss: 1.244664
+2020-08-26 13:13:05,590|INFO:epoch:33, batch: 1, current loss: 1.243504
+2020-08-26 13:13:05,600|INFO:epoch:34, batch: 1, current loss: 1.242345
+2020-08-26 13:13:05,608|INFO:epoch:35, batch: 1, current loss: 1.241187
+2020-08-26 13:13:05,618|INFO:epoch:36, batch: 1, current loss: 1.240031
+2020-08-26 13:13:05,627|INFO:epoch:37, batch: 1, current loss: 1.238876
+2020-08-26 13:13:05,636|INFO:epoch:38, batch: 1, current loss: 1.237723
+2020-08-26 13:13:05,645|INFO:epoch:39, batch: 1, current loss: 1.236571
+2020-08-26 13:13:05,654|INFO:epoch:40, batch: 1, current loss: 1.235421
+2020-08-26 13:13:05,663|INFO:epoch:41, batch: 1, current loss: 1.234272
+2020-08-26 13:13:05,672|INFO:epoch:42, batch: 1, current loss: 1.233125
+2020-08-26 13:13:05,681|INFO:epoch:43, batch: 1, current loss: 1.231979
+2020-08-26 13:13:05,690|INFO:epoch:44, batch: 1, current loss: 1.230835
+2020-08-26 13:13:05,699|INFO:epoch:45, batch: 1, current loss: 1.229692
+2020-08-26 13:13:05,708|INFO:epoch:46, batch: 1, current loss: 1.228551
+2020-08-26 13:13:05,718|INFO:epoch:47, batch: 1, current loss: 1.227411
+2020-08-26 13:13:05,727|INFO:epoch:48, batch: 1, current loss: 1.226272
+2020-08-26 13:13:05,736|INFO:epoch:49, batch: 1, current loss: 1.225135
+2020-08-26 13:13:06,565|INFO:eval acc:0.75

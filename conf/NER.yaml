@@ -1,0 +1,14 @@
+# path
+entity_path: ./data/entity
+train_path: ./data/ner_train
+eval_path: ./data/ner_eval
+bilstm_crf_model_path: ./model/bilstm_crf/model
+bilstm_crf_summary_path: ./model/bilstm_crf/summary
+bilstm_crf_predict_path: ./model/bilstm_crf
+
+# logger setting
+Server_Name: NER
+LogLevel_Console: 10
+LogLevel_File: 10
+LogFile: log/NER.log
+LogFormat: '%(asctime)s|%(levelname)s:%(message)s'
