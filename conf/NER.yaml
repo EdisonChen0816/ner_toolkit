@@ -1,10 +1,14 @@
-# path
-entity_path: ./data/entity
-train_path: ./data/ner_train
-eval_path: ./data/ner_eval
-bilstm_crf_model_path: ./model/bilstm_crf/model
-bilstm_crf_summary_path: ./model/bilstm_crf/summary
-bilstm_crf_predict_path: ./model/bilstm_crf
+# data path
+ac_test_path: ./data/ac_data/
+train_path: ./data/train.txt
+eval_path: ./data/eval.txt
+
+# model path
+# 1层bilstm_crf
+bilstm_crf_1_model_path: ./model/bilstm_crf_1/model
+bilstm_crf_1_summary_path: ./model/bilstm_crf_1/summary
+bilstm_crf_1_predict_path: ./model/bilstm_crf_1
+
 
 # logger setting
 Server_Name: NER

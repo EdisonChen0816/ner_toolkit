@@ -1,9 +1,8 @@
-# 命名实体识别工具
+# 命名实体识别工具(tensorflow版)
 
 ## 词向量模型
-下载w2v.model.vectors.npy，放在 model/w2v 目录下
+采用北师大词向量模型
 
-链接：https://pan.baidu.com/s/1C1qB2b6HyzOpj3eqDehhEQ 提取码：5b6y
 
 # demo
 ## ac自动机匹配

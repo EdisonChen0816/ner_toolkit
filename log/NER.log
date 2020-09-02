@@ -400,3 +400,23 @@
 2020-08-26 13:13:05,727|INFO:epoch:48, batch: 1, current loss: 1.226272
 2020-08-26 13:13:05,736|INFO:epoch:49, batch: 1, current loss: 1.225135
 2020-08-26 13:13:06,565|INFO:eval acc:0.75
+2020-09-01 11:56:21,375|INFO:epoch:0, batch: 1, current loss: 0.592772
+2020-09-01 11:56:23,105|INFO:epoch:0, batch: 35, current loss: 0.571194
+2020-09-01 11:56:23,157|INFO:epoch:1, batch: 1, current loss: 0.577774
+2020-09-01 11:56:25,138|INFO:epoch:1, batch: 35, current loss: 0.556928
+2020-09-01 11:56:25,214|INFO:epoch:2, batch: 1, current loss: 0.563931
+2020-09-01 11:56:27,549|INFO:epoch:2, batch: 35, current loss: 0.543766
+2020-09-01 11:56:27,616|INFO:epoch:3, batch: 1, current loss: 0.551176
+2020-09-01 11:56:29,916|INFO:epoch:3, batch: 35, current loss: 0.531640
+2020-09-01 11:56:29,981|INFO:epoch:4, batch: 1, current loss: 0.539442
+2020-09-01 11:56:32,303|INFO:epoch:4, batch: 35, current loss: 0.520485
+2020-09-01 11:56:32,382|INFO:epoch:5, batch: 1, current loss: 0.528663
+2020-09-01 11:56:34,851|INFO:epoch:5, batch: 35, current loss: 0.510235
+2020-09-01 11:56:34,919|INFO:epoch:6, batch: 1, current loss: 0.518775
+2020-09-01 12:01:23,822|INFO:epoch:0, batch: 1, current loss: 0.583407
+2020-09-01 12:01:25,469|INFO:epoch:0, batch: 35, current loss: 0.567917
+2020-09-01 12:01:25,523|INFO:epoch:1, batch: 1, current loss: 0.569392
+2020-09-01 13:07:53,378|INFO:epoch:0, batch: 1, current loss: 1.088346
+2020-09-01 13:46:40,247|INFO:epoch:0, batch: 1, current loss: 1.204749
+2020-09-01 14:40:36,539|INFO:epoch:0, batch: 1, current loss: 1.479001
+2020-09-02 13:35:01,161|INFO:epoch:0, batch: 1, current loss: 1.680308
