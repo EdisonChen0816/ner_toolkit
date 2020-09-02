@@ -6,8 +6,9 @@ import numpy as np
 
 class BiLstmCrf:
 
-    def __init__(self, logger, train_path, eval_path, max_len, batch_size, epoch, loss, rate, num_units, num_layers,
-                 tf_config, model_path, summary_path, embedding_dim=300, tag2label=None, use_attention=False):
+    def __init__(self, logger, train_path, eval_path, max_len, batch_size, epoch, loss, rate, num_units,
+                 num_layers, dropout, tf_config, model_path, summary_path, embedding_dim=300, tag2label=None,
+                 use_attention=False, attention_size=128):
         self.logger = logger
         self.train_path = train_path
         self.eval_path = eval_path
@@ -18,11 +19,13 @@ class BiLstmCrf:
         self.rate = rate
         self.num_units = num_units
         self.num_layers = num_layers
+        self.dropout = dropout
         self.tf_config = tf_config
         self.model_path = model_path
         self.summary_path = summary_path
         self.embedding_dim = embedding_dim
         self.use_attention = use_attention
+        self.attention_size = attention_size
         if tag2label is None:
             tag2label = {
                 'O': 0,
@@ -121,17 +124,16 @@ class BiLstmCrf:
         if len(seqs) != 0:
             yield np.asarray(seqs), np.asarray(seq_lens), np.asarray(labels)
 
-    def attention(self, inputs, attention_size=128):
+    def attention(self, inputs):
         '''
         注意力层
         :param inputs:
-        :param attention_size:
         :return:
         '''
         hidden_size = inputs.shape[2].value
-        w_omega = tf.Variable(tf.random_normal([hidden_size, attention_size], stddev=0.1))
-        b_omega = tf.Variable(tf.random_normal([attention_size], stddev=0.1))
-        u_omega = tf.Variable(tf.random_normal([attention_size], stddev=0.1))
+        w_omega = tf.Variable(tf.random_normal([hidden_size, self.attention_size], stddev=0.1))
+        b_omega = tf.Variable(tf.random_normal([self.attention_size], stddev=0.1))
+        u_omega = tf.Variable(tf.random_normal([self.attention_size], stddev=0.1))
         v = tf.tanh(tf.tensordot(inputs, w_omega, axes=1) + b_omega)
         vu = tf.tensordot(v, u_omega, axes=1, name='vu')
         alphas = tf.nn.softmax(vu, name='alphas')
@@ -187,7 +189,6 @@ class BiLstmCrf:
         :return:
         '''
         train_data = self.get_input_feature(self.train_path)
-        num_batches = (len(train_data) + self.batch_size - 1) // self.batch_size
         seqs = tf.placeholder(tf.int32, [None, None], name='seqs')
         seq_lens = tf.placeholder(tf.int32, [None], name='seq_lens')
         labels = tf.placeholder(tf.int32, [None, None], name='labels')
@@ -207,7 +208,7 @@ class BiLstmCrf:
             sess.run(tf.global_variables_initializer())
             for i in range(self.epoch):
                 for step, (seqs_batch, seq_lens_batch, labels_batch) in enumerate(self.batch_yield(train_data)):
-                    _, curr_loss = sess.run([train_op, loss], feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 0.9})
+                    _, curr_loss = sess.run([train_op, loss], feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1-self.dropout})
                     if step % 10 == 0:
                         self.logger.info('epoch:%d, batch: %d, current loss: %f' % (i, step+1, curr_loss))
             saver.save(sess, self.model_path)
@@ -230,9 +231,7 @@ class BiLstmCrf:
         fp = 0  # 负类判定为正类
         fn = 0  # 正类判定为负类
         for _, (seqs_batch, seq_lens_batch, labels_batch) in enumerate(self.batch_yield(eval_data)):
-            preds = sess.run([preds_seq], feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1.0})[0]
-            # sum += np.sum(pred == labels_batch)
-            # total += len(np.reshape(labels_batch, [-1]))
+            preds = sess.run(preds_seq, feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1.0})
             for i in range(len(preds)):
                 pred = preds[i]
                 label = labels_batch[i]
@@ -245,9 +244,14 @@ class BiLstmCrf:
         recall = tp / (tp + fn + 0.1)
         precision = tp / (tp + fp + 0.1)
         f1 = (2 * recall * precision) / (recall + precision + 0.1)
-        self.logger.info('eval recall:' + str(recall) + 'eval precision:' + str(precision) + 'eval f1:' + str(f1))
+        self.logger.info('eval recall:' + str(recall) + ' eval precision:' + str(precision) + ' eval f1:' + str(f1))
 
     def label2entity(self, label):
+        '''
+        将预测结果[0, 1, 2, 2, 2, 0, 3, 4]转成(com_1_4, pos_6_7),com公司实体，1是起始位置，4是结束位置，方便统计
+        :param label:
+        :return:
+        '''
         entity_set = set()
         entity = ''
         count = 0
@@ -325,5 +329,5 @@ class BiLstmCrf:
 
     def predict(self, text):
         seq_pred, seq_len_pred, label_pred = self._predict_text_process(text)
-        pred = self.pred_sess.run(self.preds_seq, feed_dict={self.seqs: seq_pred, self.seq_lens: seq_len_pred, self.labels: label_pred, self.keep_prob: 1.0})
+        pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.seqs: seq_pred, self.seq_lens: seq_len_pred, self.labels: label_pred, self.keep_prob: 1.0})
         return pred

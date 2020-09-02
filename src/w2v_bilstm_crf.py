@@ -6,8 +6,9 @@ import numpy as np
 
 class W2VBiLstmCrf:
 
-    def __init__(self, logger, train_path, eval_path, w2v, max_len, batch_size, epoch, loss, rate, num_units,
-                 num_layers, tf_config, model_path, summary_path, embedding_dim=300, tag2label=None, use_attention=False):
+    def __init__(self, logger, train_path, eval_path, w2v, max_len, batch_size, epoch, loss, rate,
+                 num_units, num_layers, dropout, tf_config, model_path, summary_path, embedding_dim=300,
+                 tag2label=None, use_attention=False, attention_size=128):
         self.logger = logger
         self.train_path = train_path
         self.eval_path = eval_path
@@ -19,11 +20,13 @@ class W2VBiLstmCrf:
         self.rate = rate
         self.num_units = num_units
         self.num_layers = num_layers
+        self.dropout = dropout
         self.tf_config = tf_config
         self.model_path = model_path
         self.summary_path = summary_path
         self.embedding_dim = embedding_dim
         self.use_attention = use_attention
+        self.attention_size = attention_size
         if tag2label is None:
             tag2label = {
                 "O": 0,
@@ -39,6 +42,11 @@ class W2VBiLstmCrf:
         self.pred_sess = None
 
     def get_input_feature(self, data_path):
+        '''
+        获取数据特征
+        :param data_path:
+        :return:
+        '''
         data = []
         with open(data_path, 'r', encoding='utf-8') as f:
             seq = []
@@ -61,8 +69,9 @@ class W2VBiLstmCrf:
                 else:
                     word, tag = line.replace('\n', '').split('\t')
                     if word not in self.w2v:
-                        word = 'unknown'
-                    seq.append(self.w2v[word])
+                        seq.append([0] * self.embedding_dim)
+                    else:
+                        seq.append(self.w2v[word])
                     label.append(self.tag2label[tag])
             if len(seq) > 0 and len(seq) == len(label):
                 seq_len = len(seq)
@@ -78,6 +87,12 @@ class W2VBiLstmCrf:
         return np.asarray(data)
 
     def batch_yield(self, data, shuffle=False):
+        '''
+        产生batch数据
+        :param data:
+        :param shuffle:
+        :return:
+        '''
         if shuffle:
             random.shuffle(data)
         seqs, seq_lens, labels = [], [], []
@@ -91,11 +106,17 @@ class W2VBiLstmCrf:
         if len(seqs) != 0:
             yield np.asarray(seqs), np.asarray(seq_lens), np.asarray(labels)
 
-    def attention(self, inputs, attention_size=128):
+    def attention(self, inputs):
+        '''
+        注意力层
+        :param inputs:
+        :param attention_size:
+        :return:
+        '''
         hidden_size = inputs.shape[2].value
-        w_omega = tf.Variable(tf.random_normal([hidden_size, attention_size], stddev=0.1))
-        b_omega = tf.Variable(tf.random_normal([attention_size], stddev=0.1))
-        u_omega = tf.Variable(tf.random_normal([attention_size], stddev=0.1))
+        w_omega = tf.Variable(tf.random_normal([hidden_size, self.attention_size], stddev=0.1))
+        b_omega = tf.Variable(tf.random_normal([self.attention_size], stddev=0.1))
+        u_omega = tf.Variable(tf.random_normal([self.attention_size], stddev=0.1))
         v = tf.tanh(tf.tensordot(inputs, w_omega, axes=1) + b_omega)
         vu = tf.tensordot(v, u_omega, axes=1, name='vu')
         alphas = tf.nn.softmax(vu, name='alphas')
@@ -104,6 +125,14 @@ class W2VBiLstmCrf:
         return output
 
     def model(self, seqs, seq_lens, labels, keep_prob):
+        '''
+        构建模型
+        :param seqs:
+        :param seq_lens:
+        :param labels:
+        :param keep_prob:
+        :return:
+        '''
         cell_fws = []
         cell_bws = []
         for _ in range(self.num_layers):
@@ -134,6 +163,10 @@ class W2VBiLstmCrf:
         return preds_seq, log_likelihood
 
     def fit(self):
+        '''
+        训练模型
+        :return:
+        '''
         train_data = self.get_input_feature(self.train_path)
         num_batches = (len(train_data) + self.batch_size - 1) // self.batch_size
         seqs = tf.placeholder(tf.float32, [None, self.max_len, 300], name="seqs")
@@ -155,24 +188,94 @@ class W2VBiLstmCrf:
             sess.run(tf.global_variables_initializer())
             for i in range(self.epoch):
                 for step, (seqs_batch, seq_lens_batch, labels_batch) in enumerate(self.batch_yield(train_data)):
-                    _, curr_loss = sess.run([train_op, loss], feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1.0})
-                    if step + 1 == 1 or (step + 1) % 300 == 0 or step + 1 == num_batches:
+                    _, curr_loss = sess.run([train_op, loss], feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1-self.dropout})
+                    if step % 10 == 0:
                         self.logger.info("epoch:%d, batch: %d, current loss: %f" % (i, step+1, curr_loss))
             saver.save(sess, self.model_path)
             tf.summary.FileWriter(self.summary_path, sess.graph)
             self.evaluate(sess, seqs, seq_lens, labels, keep_prob, preds_seq)
 
     def evaluate(self, sess, seqs, seq_lens, labels, keep_prob, preds_seq):
+        '''
+        评估模型
+        :param sess:
+        :param seqs:
+        :param seq_lens:
+        :param labels:
+        :param keep_prob:
+        :param preds_seq:
+        :return:
+        '''
         eval_data = self.get_input_feature(self.eval_path)
-        sum = 0
-        total = 0
+        tp = 0  # 正类判定为正类
+        fp = 0  # 负类判定为正类
+        fn = 0  # 正类判定为负类
         for _, (seqs_batch, seq_lens_batch, labels_batch) in enumerate(self.batch_yield(eval_data)):
-            pred = sess.run([preds_seq], feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1.0})
-            sum += np.sum(pred == labels_batch)
-            total += len(np.reshape(labels_batch, [-1]))
-        self.logger.info('eval acc:' + str(sum / total))
+            preds = sess.run(preds_seq, feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1.0})
+            for i in range(len(preds)):
+                pred = preds[i]
+                label = labels_batch[i]
+                seq_len = seq_lens_batch[i]
+                true_res = self.label2entity(label[: seq_len])
+                pred_res = self.label2entity(pred[: seq_len])
+                tp += len(true_res & pred_res)
+                fp += len(pred_res - true_res)
+                fn += len(true_res - pred_res)
+        recall = tp / (tp + fn + 0.1)
+        precision = tp / (tp + fp + 0.1)
+        f1 = (2 * recall * precision) / (recall + precision + 0.1)
+        self.logger.info('eval recall:' + str(recall) + ' eval precision:' + str(precision) + ' eval f1:' + str(f1))
+
+    def label2entity(self, label):
+        '''
+        将预测结果[0, 1, 2, 2, 2, 0, 3, 4]转成(com_1_4, pos_6_7),com公司实体，1是起始位置，4是结束位置，方便统计
+        :param label:
+        :return:
+        '''
+        entity_set = set()
+        entity = ''
+        count = 0
+        while count < len(label):
+            if 'B-com' == self.label2tag[int(label[count])]:
+                entity += 'com_' + str(count)
+                count += 1
+                while count < len(label):
+                    if 'I-com' == self.label2tag[int(label[count])] and count == len(label) - 1:
+                        entity += '_' + str(count)
+                        break
+                    if 'I-com' != self.label2tag[int(label[count])]:
+                        entity += '_' + str(count - 1)
+                        break
+                    count += 1
+                s = entity.split('_')
+                if 3 == len(s) and s[1] != s[2]:
+                    entity_set.add(entity)
+                entity = ''
+            elif 'B-pos' == self.label2tag[int(label[count])]:
+                entity += 'pos_' + str(count)
+                count += 1
+                while count < len(label):
+                    if 'I-pos' == self.label2tag[int(label[count])] and count == len(label) - 1:
+                        entity += '_' + str(count)
+                        break
+                    if 'I-pos' != self.label2tag[int(label[count])]:
+                        entity += '_' + str(count - 1)
+                        break
+                    count += 1
+                s = entity.split('_')
+                if 3 == len(s) and s[1] != s[2]:
+                    entity_set.add(entity)
+                entity = ''
+            else:
+                count += 1
+        return entity_set
 
     def load(self, path):
+        '''
+        加载模型
+        :param path:
+        :return:
+        '''
         self.pred_sess = tf.Session(config=self.tf_config)
         saver = tf.train.import_meta_graph(path + '/model.meta')
         saver.restore(self.pred_sess, tf.train.latest_checkpoint(path))
@@ -185,16 +288,6 @@ class W2VBiLstmCrf:
 
     def close(self):
         self.pred_sess.close()
-
-    def _predict_result_process(self, predict_results, predict_lens):
-        ners = []
-        for i in range(len(predict_results)):
-            tags = predict_results[i][0][0][0][: predict_lens[i]]
-            ner = []
-            for t in tags:
-                ner.append(self.label2tag[t])
-            ners.append(ner)
-        return ners
 
     def _predict_text_process(self, text):
         seq = []
@@ -214,12 +307,7 @@ class W2VBiLstmCrf:
                 label.append(self.tag2label['O'])
         return np.asarray([seq]), np.asarray([seq_len]), np.asarray([label])
 
-    def predict(self, texts):
-        predict_results = []
-        predict_lens = []
-        for text in texts:
-            seq_pred, seq_len_pred, label_pred = self._predict_text_process(text)
-            pred = self.pred_sess.run([self.preds_seq], feed_dict={self.seqs: seq_pred, self.seq_lens: seq_len_pred, self.labels: label_pred, self.keep_prob: 1.0})
-            predict_results.append(pred)
-            predict_lens.append(seq_len_pred[0])
-        return self._predict_result_process(predict_results, predict_lens)
+    def predict(self, text):
+        seq_pred, seq_len_pred, label_pred = self._predict_text_process(text)
+        pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.seqs: seq_pred, self.seq_lens: seq_len_pred, self.labels: label_pred, self.keep_prob: 1.0})
+        return pred

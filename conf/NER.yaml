@@ -9,6 +9,29 @@ bilstm_crf_1_model_path: ./model/bilstm_crf_1/model
 bilstm_crf_1_summary_path: ./model/bilstm_crf_1/summary
 bilstm_crf_1_predict_path: ./model/bilstm_crf_1
 
+# 2层bilstm_crf
+bilstm_crf_2_model_path: ./model/bilstm_crf_2/model
+bilstm_crf_2_summary_path: ./model/bilstm_crf_2/summary
+bilstm_crf_2_predict_path: ./model/bilstm_crf_2
+
+# 3层bilstm_crf
+bilstm_crf_3_model_path: ./model/bilstm_crf_3/model
+bilstm_crf_3_summary_path: ./model/bilstm_crf_3/summary
+bilstm_crf_3_predict_path: ./model/bilstm_crf_3
+
+# 4层bilstm_crf
+bilstm_crf_4_model_path: ./model/bilstm_crf_4/model
+bilstm_crf_4_summary_path: ./model/bilstm_crf_4/summary
+bilstm_crf_4_predict_path: ./model/bilstm_crf_4
+
+# 带attention的bilstm_crf
+bilstm_crf_attention_model_path: ./model/bilstm_crf_attention/model
+bilstm_crf_attention_summary_path: ./model/bilstm_crf_attention/summary
+bilstm_crf_attention_predict_path: ./model/bilstm_crf_attention
+
+# w2v path
+char_w2v_path: C:/数据/模型/sgns.wiki.char.bz2
+word_w2v_path: C:/数据/模型/sgns.wiki.word.bz2
 
 # logger setting
 Server_Name: NER

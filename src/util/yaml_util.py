@@ -12,6 +12,6 @@ def loadyaml(path):
     '''
     doc = []
     if os.path.exists(path):
-        with codecs.open(path, 'r') as yf:
+        with codecs.open(path, 'r', encoding='utf-8') as yf:
             doc = yaml.safe_load(yf)
     return doc
