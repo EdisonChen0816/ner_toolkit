@@ -33,6 +33,21 @@ bilstm_crf_attention_predict_path: ./model/bilstm_crf_attention
 char_w2v_path: C:/数据/模型/sgns.wiki.char.bz2
 word_w2v_path: C:/数据/模型/sgns.wiki.word.bz2
 
+# 字w2v+1层bilstm_crf
+char_w2v_bilstm_crf_1_model_path: ./model/char_w2v_bilstm_crf_1/model
+char_w2v_bilstm_crf_1_summary_path: ./model/char_w2v_bilstm_crf_1/summary
+char_w2v_bilstm_crf_1_predict_path: ./model/char_w2v_bilstm_crf_1
+
+# 字w2v+两层bilstm_crf
+char_w2v_bilstm_crf_2_model_path: ./model/char_w2v_bilstm_crf_2/model
+char_w2v_bilstm_crf_2_summary_path: ./model/char_w2v_bilstm_crf_2/summary
+char_w2v_bilstm_crf_2_predict_path: ./model/char_w2v_bilstm_crf_2
+
+# 字w2v+带attention的bilstm_crf
+char_w2v_bilstm_crf_attention_model_path: ./model/char_w2v_bilstm_crf_attention/model
+char_w2v_bilstm_crf_attention_summary_path: ./model/char_w2v_bilstm_crf_attention/summary
+char_w2v_bilstm_crf_attention_predict_path: ./model/char_w2v_bilstm_crf_attention
+
 # logger setting
 Server_Name: NER
 LogLevel_Console: 10

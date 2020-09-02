@@ -13,6 +13,8 @@ git：https://github.com/Embedding/Chinese-Word-Vectors
 采用结巴分词器
 
 ## 数据：
+ac自动机测试数据是省市区数据，来自网络。
+
 数据来源：https://www.cluebenchmarks.com/introduce.html  CLUENER细粒度命名实体识别
 
 本demo只识别公司和职位，筛选含有公司和职位的数据，作为训练和验证数据

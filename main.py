@@ -6,7 +6,7 @@ from src.bilstm_crf import BiLstmCrf
 import os
 import tensorflow as tf
 from gensim.models import KeyedVectors
-from src.w2v_bilstm_crf import W2VBiLstmCrf
+from src.char_w2v_bilstm_crf import CharW2VBiLstmCrf
 from src.bert_crf import BertCrf
 from src.bert_bilstm_crf import BertBiLstmCrf
 
@@ -15,7 +15,7 @@ config = loadyaml('conf/NER.yaml')
 logger = setlogger(config)
 
 # tf配置
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '4'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # default: 0
 tf_config = tf.ConfigProto()
 tf_config.gpu_options.allow_growth = True
@@ -184,18 +184,11 @@ def test_bilstm_crf_attention():
     model.close()
 
 
-def test_w2v_bilstm_crf_1():
+def test_char_w2v_bilstm_crf_1():
     '''
     字w2v + 1层bilstm_crf
     :return:
     '''
-    config = loadyaml('conf/NER.yaml')
-    logger = setlogger(config)
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # default: 0
-    tf_config = tf.ConfigProto()
-    tf_config.gpu_options.allow_growth = True
-    tf_config.gpu_options.per_process_gpu_memory_fraction = 0.8
     w2v = KeyedVectors.load_word2vec_format(config['char_w2v_path'], binary=False)
     wblc_cfg = {
         'logger': logger,
@@ -211,13 +204,75 @@ def test_w2v_bilstm_crf_1():
         'num_units': 64,
         'num_layers': 1,
         'tf_config': tf_config,
-        'model_path': './model/w2v_bilstm_crf/model',
-        'summary_path': './model/w2v_bilstm_crf/summary',
+        'model_path': config['char_w2v_bilstm_crf_1_model_path'],
+        'summary_path': config['char_w2v_bilstm_crf_1_summary_path'],
         'use_attention': True
     }
-    model = W2VBiLstmCrf(**wblc_cfg)
+    model = CharW2VBiLstmCrf(**wblc_cfg)
     model.fit()
-    model.load('./model/w2v_bilstm_crf')
+    model.load(config['char_w2v_bilstm_crf_1_predict_path'])
+    print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
+    model.close()
+
+
+def test_char_w2v_bilstm_crf_2():
+    '''
+    字w2v + 两层bilstm_crf
+    :return:
+    '''
+    w2v = KeyedVectors.load_word2vec_format(config['char_w2v_path'], binary=False)
+    wblc_cfg = {
+        'logger': logger,
+        'train_path': config['train_path'],
+        'eval_path': config['eval_path'],
+        'w2v': w2v,
+        'max_len': 64,
+        'batch_size': 32,
+        'epoch': 50,
+        'loss': 'sgd',
+        'rate': 0.001,
+        'dropout': 0.1,
+        'num_units': 64,
+        'num_layers': 2,
+        'tf_config': tf_config,
+        'model_path': config['char_w2v_bilstm_crf_2_model_path'],
+        'summary_path': config['char_w2v_bilstm_crf_2_summary_path'],
+        'use_attention': True
+    }
+    model = CharW2VBiLstmCrf(**wblc_cfg)
+    model.fit()
+    model.load(config['char_w2v_bilstm_crf_2_predict_path'])
+    print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
+    model.close()
+
+
+def test_char_w2v_bilstm_crf_attention():
+    '''
+    字w2v + 带attention的bilstm_crf
+    :return:
+    '''
+    w2v = KeyedVectors.load_word2vec_format(config['char_w2v_path'], binary=False)
+    wblc_cfg = {
+        'logger': logger,
+        'train_path': config['train_path'],
+        'eval_path': config['eval_path'],
+        'w2v': w2v,
+        'max_len': 64,
+        'batch_size': 32,
+        'epoch': 50,
+        'loss': 'sgd',
+        'rate': 0.001,
+        'dropout': 0.1,
+        'num_units': 64,
+        'num_layers': 2,
+        'tf_config': tf_config,
+        'model_path': config['char_w2v_bilstm_crf_attention_model_path'],
+        'summary_path': config['char_w2v_bilstm_crf_attention_summary_path'],
+        'use_attention': True
+    }
+    model = CharW2VBiLstmCrf(**wblc_cfg)
+    model.fit()
+    model.load(config['char_w2v_bilstm_crf_attention_predict_path'])
     print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
     model.close()
 
