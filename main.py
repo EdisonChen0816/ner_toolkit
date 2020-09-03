@@ -6,7 +6,7 @@ from src.bilstm_crf import BiLstmCrf
 import os
 import tensorflow as tf
 from gensim.models import KeyedVectors
-from src.char_w2v_bilstm_crf import CharW2VBiLstmCrf
+from src.w2v_bilstm_crf import W2VBiLstmCrf
 from src.bert_crf import BertCrf
 from src.bert_bilstm_crf import BertBiLstmCrf
 
@@ -184,7 +184,7 @@ def test_bilstm_crf_attention():
     model.close()
 
 
-def test_char_w2v_bilstm_crf_1():
+def test_w2v_bilstm_crf_1():
     '''
     字w2v + 1层bilstm_crf
     :return:
@@ -208,14 +208,14 @@ def test_char_w2v_bilstm_crf_1():
         'summary_path': config['char_w2v_bilstm_crf_1_summary_path'],
         'use_attention': True
     }
-    model = CharW2VBiLstmCrf(**wblc_cfg)
+    model = W2VBiLstmCrf(**wblc_cfg)
     model.fit()
     model.load(config['char_w2v_bilstm_crf_1_predict_path'])
     print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
     model.close()
 
 
-def test_char_w2v_bilstm_crf_2():
+def test_w2v_bilstm_crf_2():
     '''
     字w2v + 两层bilstm_crf
     :return:
@@ -239,14 +239,14 @@ def test_char_w2v_bilstm_crf_2():
         'summary_path': config['char_w2v_bilstm_crf_2_summary_path'],
         'use_attention': True
     }
-    model = CharW2VBiLstmCrf(**wblc_cfg)
+    model = W2VBiLstmCrf(**wblc_cfg)
     model.fit()
     model.load(config['char_w2v_bilstm_crf_2_predict_path'])
     print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
     model.close()
 
 
-def test_char_w2v_bilstm_crf_attention():
+def test_w2v_bilstm_crf_attention():
     '''
     字w2v + 带attention的bilstm_crf
     :return:
@@ -270,14 +270,14 @@ def test_char_w2v_bilstm_crf_attention():
         'summary_path': config['char_w2v_bilstm_crf_attention_summary_path'],
         'use_attention': True
     }
-    model = CharW2VBiLstmCrf(**wblc_cfg)
+    model = W2VBiLstmCrf(**wblc_cfg)
     model.fit()
     model.load(config['char_w2v_bilstm_crf_attention_predict_path'])
     print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
     model.close()
 
 
-def test_bert_crf_tf(text):
+def test_bert_crf_tf():
     os.environ['CUDA_VISIBLE_DEVICES'] = '3, 4'
     tf_config = tf.ConfigProto(log_device_placement=True)
     tf_config.gpu_options.per_process_gpu_memory_fraction = 0.9
@@ -300,11 +300,11 @@ def test_bert_crf_tf(text):
     model.save('./model/bert_crf')
     model = BertCrf(**bert_cfg)
     model.load('./model/bert_crf')
-    results = model.predict(text)
+    results = model.predict('招商银行田惠宇行长在股东大会上致辞')
     print(results)
 
 
-def test_bert_bilstm_crf_tf(text):
+def test_bert_bilstm_crf_tf():
     # tf配置
     os.environ['CUDA_VISIBLE_DEVICES'] = '3, 4'
     tf_config = tf.ConfigProto(log_device_placement=True)

@@ -4,7 +4,7 @@ import random
 import numpy as np
 
 
-class CharW2VBiLstmCrf:
+class W2VBiLstmCrf:
 
     def __init__(self, logger, train_path, eval_path, w2v, max_len, batch_size, epoch, loss, rate,
                  num_units, num_layers, dropout, tf_config, model_path, summary_path, embedding_dim=300,

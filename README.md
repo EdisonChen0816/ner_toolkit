@@ -1,16 +1,11 @@
 # 命名实体识别工具(tensorflow版)
 
-## 词（字）向量模型
-采用北师大词（字）向量模型
+## 字向量模型
+采用北师大字向量模型
 
 git：https://github.com/Embedding/Chinese-Word-Vectors
 
-本demo采用的词向量模型： dense + Wikipedia_zh中文维基百科 + Word + 300d
-
 本demo采用的字向量模型： dense + Wikipedia_zh中文维基百科 + Word+Character + 300d
-
-## 分词器：
-采用结巴分词器
 
 ## 数据：
 ac自动机测试数据是省市区数据，来自网络。
