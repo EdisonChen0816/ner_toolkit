@@ -1,11 +1,13 @@
 # 命名实体识别工具(tensorflow版)
 
 ## 字向量模型
-采用北师大字向量模型
+我们自己训练的模型，采用中文维基百科数据作为训练语料
 
-git：https://github.com/Embedding/Chinese-Word-Vectors
+模型存放在百度云中
 
-本demo采用的字向量模型： dense + Wikipedia_zh中文维基百科 + Word+Character + 300d
+链接：https://pan.baidu.com/s/1C1qB2b6HyzOpj3eqDehhEQ 提取码：5b6y
+
+下载w2v.model.vectors.npy，放在 /model/w2v 目录下
 
 ## 数据：
 ac自动机测试数据是省市区数据，来自网络。
@@ -40,9 +42,27 @@ ac自动机匹配： test_ac_match
 
 **1层bilstm_crf:** 
 
+batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 256, dropout: 0.1
+
+eval company recall:0.7301587301587301, eval company precision:0.7582417582417582, eval company f1:0.7439353099730458
+
+eval position recall:0.7505773672055427, eval position precision:0.818639798488665, eval position f1:0.7831325301204818
+
 **2层bilstm_crf:**
 
+batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 220, dropout: 0.0
+
+eval company recall:0.6984126984126984, eval company precision:0.7213114754098361, eval company f1:0.7096774193548387
+
+eval position recall:0.7251732101616628, eval position precision:0.7929292929292929, eval position f1:0.7575392038600723
+
 **3层bilstm_crf:**
+
+batch_size: 128, epoch: 200, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+
+eval company recall:0.6851851851851852, eval company precision:0.7442528735632183, eval company f1:0.7134986225895316
+
+eval position recall:0.7090069284064665, eval position precision:0.7752525252525253, eval position f1:0.7406513872135103
 
 **4层bilstm_crf:**
 

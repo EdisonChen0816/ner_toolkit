@@ -227,24 +227,35 @@ class BiLstmCrf:
         :return:
         '''
         eval_data = self.get_input_feature(self.eval_path)
-        tp = 0  # 正类判定为正类
-        fp = 0  # 负类判定为正类
-        fn = 0  # 正类判定为负类
+        tp_com = 0  # 正类判定为正类
+        fp_com = 0  # 负类判定为正类
+        fn_com = 0  # 正类判定为负类
+        tp_pos = 0  # 正类判定为正类
+        fp_pos = 0  # 负类判定为正类
+        fn_pos = 0  # 正类判定为负类
         for _, (seqs_batch, seq_lens_batch, labels_batch) in enumerate(self.batch_yield(eval_data)):
             preds = sess.run(preds_seq, feed_dict={seqs: seqs_batch, seq_lens: seq_lens_batch, labels: labels_batch, keep_prob: 1.0})
             for i in range(len(preds)):
                 pred = preds[i]
                 label = labels_batch[i]
                 seq_len = seq_lens_batch[i]
-                true_res = self.label2entity(label[: seq_len])
-                pred_res = self.label2entity(pred[: seq_len])
-                tp += len(true_res & pred_res)
-                fp += len(pred_res - true_res)
-                fn += len(true_res - pred_res)
-        recall = tp / (tp + fn + 0.1)
-        precision = tp / (tp + fp + 0.1)
-        f1 = (2 * recall * precision) / (recall + precision + 0.1)
-        self.logger.info('eval recall:' + str(recall) + ' eval precision:' + str(precision) + ' eval f1:' + str(f1))
+                true_com, true_pos = self.label2entity(label[: seq_len])
+                pred_com, pred_pos = self.label2entity(pred[: seq_len])
+                tp_com += len(true_com & pred_com)
+                fp_com += len(pred_com - true_com)
+                fn_com += len(true_com - pred_com)
+                tp_pos += len(true_pos & pred_pos)
+                fp_pos += len(pred_pos - true_pos)
+                fn_pos += len(true_pos - pred_pos)
+        recall_com = tp_com / (tp_com + fn_com)
+        precision_com = tp_com / (tp_com + fp_com)
+        f1_com = (2 * recall_com * precision_com) / (recall_com + precision_com)
+        recall_pos = tp_pos / (tp_pos + fn_pos)
+        precision_pos = tp_pos / (tp_pos + fp_pos)
+        f1_pos = (2 * recall_pos * precision_pos) / (recall_pos + precision_pos)
+        self.logger.info('eval company recall:' + str(recall_com) + ', eval company precision:' + str(precision_com)
+                         + ', eval company f1:' + str(f1_com) + ', eval position recall:'
+                         + str(recall_pos) + ', eval position precision:' + str(precision_pos) + ', eval position f1:' + str(f1_pos))
 
     def label2entity(self, label):
         '''
@@ -252,7 +263,8 @@ class BiLstmCrf:
         :param label:
         :return:
         '''
-        entity_set = set()
+        com_set = set()
+        pos_set = set()
         entity = ''
         count = 0
         while count < len(label):
@@ -269,7 +281,7 @@ class BiLstmCrf:
                     count += 1
                 s = entity.split('_')
                 if 3 == len(s) and s[1] != s[2]:
-                    entity_set.add(entity)
+                    com_set.add(entity)
                 entity = ''
             elif 'B-pos' == self.label2tag[int(label[count])]:
                 entity += 'pos_' + str(count)
@@ -284,11 +296,11 @@ class BiLstmCrf:
                     count += 1
                 s = entity.split('_')
                 if 3 == len(s) and s[1] != s[2]:
-                    entity_set.add(entity)
+                    pos_set.add(entity)
                 entity = ''
             else:
                 count += 1
-        return entity_set
+        return com_set, pos_set
 
     def load(self, path):
         '''
