@@ -66,7 +66,30 @@ eval position recall:0.7090069284064665, eval position precision:0.7752525252525
 
 **4层bilstm_crf:**
 
+batch_size: 128, epoch: 100, loss: adam, rate: 0.01, num_unit: 150, dropout: 0.0
+
+eval company recall:0.6772486772486772, eval company precision:0.7272727272727273, eval company f1:0.7013698630136986
+
+eval position recall:0.7251732101616628, eval position precision:0.7969543147208121, eval position f1:0.7593712212817412
+
 **带attention的bilstm_crf:**
+
+batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+
+eval company recall:0.7037037037037037, eval company precision:0.7327823691460055, eval company f1:0.717948717948718
+
+eval position recall:0.7482678983833718, eval position precision:0.8120300751879699, eval position f1:0.7788461538461539
+
+**w2v + 一层bilstm_crf:**
+
+batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+
+eval company recall:0.7433862433862434, eval company precision:0.7762430939226519, eval company f1:0.7594594594594595
+
+eval position recall:0.7829099307159353, eval position precision:0.8411910669975186, eval position f1:0.8110047846889952
+
+**w2v + 两层bilstm_crf:**
+
 
 ## todo：
 增加带词汇增强的命名实体识别方法

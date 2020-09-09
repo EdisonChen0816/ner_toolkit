@@ -189,7 +189,7 @@ def test_w2v_bilstm_crf_1():
     字w2v + 1层bilstm_crf
     :return:
     '''
-    w2v = KeyedVectors.load_word2vec_format(config['char_w2v_path'], binary=False)
+    w2v = KeyedVectors.load_word2vec_format(config['w2v_path'], binary=False)
     wblc_cfg = {
         'logger': logger,
         'train_path': config['train_path'],
@@ -198,19 +198,19 @@ def test_w2v_bilstm_crf_1():
         'max_len': 64,
         'batch_size': 32,
         'epoch': 50,
-        'loss': 'sgd',
-        'rate': 0.001,
-        'dropout': 0.1,
-        'num_units': 64,
+        'loss': 'adam',
+        'rate': 0.01,
+        'dropout': 0.0,
+        'num_units': 200,
         'num_layers': 1,
         'tf_config': tf_config,
-        'model_path': config['char_w2v_bilstm_crf_1_model_path'],
-        'summary_path': config['char_w2v_bilstm_crf_1_summary_path'],
-        'use_attention': True
+        'model_path': config['w2v_bilstm_crf_1_model_path'],
+        'summary_path': config['w2v_bilstm_crf_1_summary_path'],
+        'use_attention': False
     }
     model = W2VBiLstmCrf(**wblc_cfg)
     model.fit()
-    model.load(config['char_w2v_bilstm_crf_1_predict_path'])
+    model.load(config['w2v_bilstm_crf_1_predict_path'])
     print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
     model.close()
 
@@ -220,7 +220,7 @@ def test_w2v_bilstm_crf_2():
     字w2v + 两层bilstm_crf
     :return:
     '''
-    w2v = KeyedVectors.load_word2vec_format(config['char_w2v_path'], binary=False)
+    w2v = KeyedVectors.load_word2vec_format(config['w2v_path'], binary=False)
     wblc_cfg = {
         'logger': logger,
         'train_path': config['train_path'],
@@ -235,13 +235,13 @@ def test_w2v_bilstm_crf_2():
         'num_units': 64,
         'num_layers': 2,
         'tf_config': tf_config,
-        'model_path': config['char_w2v_bilstm_crf_2_model_path'],
-        'summary_path': config['char_w2v_bilstm_crf_2_summary_path'],
+        'model_path': config['w2v_bilstm_crf_2_model_path'],
+        'summary_path': config['w2v_bilstm_crf_2_summary_path'],
         'use_attention': True
     }
     model = W2VBiLstmCrf(**wblc_cfg)
     model.fit()
-    model.load(config['char_w2v_bilstm_crf_2_predict_path'])
+    model.load(config['w2v_bilstm_crf_2_predict_path'])
     print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
     model.close()
 
@@ -251,7 +251,7 @@ def test_w2v_bilstm_crf_attention():
     字w2v + 带attention的bilstm_crf
     :return:
     '''
-    w2v = KeyedVectors.load_word2vec_format(config['char_w2v_path'], binary=False)
+    w2v = KeyedVectors.load(config['w2v_path'])
     wblc_cfg = {
         'logger': logger,
         'train_path': config['train_path'],
@@ -266,13 +266,13 @@ def test_w2v_bilstm_crf_attention():
         'num_units': 64,
         'num_layers': 2,
         'tf_config': tf_config,
-        'model_path': config['char_w2v_bilstm_crf_attention_model_path'],
-        'summary_path': config['char_w2v_bilstm_crf_attention_summary_path'],
+        'model_path': config['w2v_bilstm_crf_attention_model_path'],
+        'summary_path': config['w2v_bilstm_crf_attention_summary_path'],
         'use_attention': True
     }
     model = W2VBiLstmCrf(**wblc_cfg)
     model.fit()
-    model.load(config['char_w2v_bilstm_crf_attention_predict_path'])
+    model.load(config['w2v_bilstm_crf_attention_predict_path'])
     print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
     model.close()
 
@@ -337,4 +337,6 @@ if __name__ == '__main__':
     # test_ac_match()
     # test_bilstm_crf_1()
     # test_bilstm_crf_2()
-    test_bilstm_crf_3()
+    # test_bilstm_crf_3()
+    # test_bilstm_crf_4()
+    test_w2v_bilstm_crf_1()

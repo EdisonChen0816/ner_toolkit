@@ -1,10 +1,7 @@
 gensim
-jieba
-logger
 numpy
 requests
-pyemd
 pyahocorasick
-numpy
 requests
 tensorflow==1.9.0
+pyyaml
