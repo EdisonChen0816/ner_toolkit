@@ -257,14 +257,14 @@ def test_w2v_bilstm_crf_attention():
         'train_path': config['train_path'],
         'eval_path': config['eval_path'],
         'w2v': w2v,
-        'max_len': 64,
-        'batch_size': 32,
+        'max_len': 50,
+        'batch_size': 64,
         'epoch': 50,
-        'loss': 'sgd',
-        'rate': 0.001,
+        'loss': 'adam',
+        'rate': 0.01,
         'dropout': 0.1,
-        'num_units': 64,
-        'num_layers': 2,
+        'num_units': 200,
+        'num_layers': 1,
         'tf_config': tf_config,
         'model_path': config['w2v_bilstm_crf_attention_model_path'],
         'summary_path': config['w2v_bilstm_crf_attention_summary_path'],
@@ -286,11 +286,11 @@ def test_bert_crf_tf():
         'bert_path': 'C:/数据/模型/chinese_L-12_H-768_A-12',
         'train_path': './data/train_path',
         'eval_path': './data/eval_path',
-        'max_length': 128,
-        'batch_size': 32,
+        'max_length': 50,
+        'batch_size': 64,
         'save_path': './model/bert',
-        'learning_rate': 2e-5,
-        'epoch': 3,
+        'learning_rate': 0.01,
+        'epoch': 10,
         'save_checkpoints_steps': 100,
         'tf_config': tf_config
     }
@@ -339,4 +339,7 @@ if __name__ == '__main__':
     # test_bilstm_crf_2()
     # test_bilstm_crf_3()
     # test_bilstm_crf_4()
-    test_w2v_bilstm_crf_1()
+    # test_w2v_bilstm_crf_1()
+    # test_w2v_bilstm_crf_2()
+    # test_w2v_bilstm_crf_attention()
+    test_bert_crf_tf()

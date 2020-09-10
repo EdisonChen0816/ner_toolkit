@@ -40,7 +40,7 @@ ac自动机匹配： test_ac_match
 ## 模型参数及效果
 /model中的模型训练参数如下：
 
-**1层bilstm_crf:** 
+**(1) 1层bilstm_crf:** 
 
 batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 256, dropout: 0.1
 
@@ -48,7 +48,8 @@ eval company recall:0.7301587301587301, eval company precision:0.758241758241758
 
 eval position recall:0.7505773672055427, eval position precision:0.818639798488665, eval position f1:0.7831325301204818
 
-**2层bilstm_crf:**
+
+**(2) 2层bilstm_crf:**
 
 batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 220, dropout: 0.0
 
@@ -56,7 +57,8 @@ eval company recall:0.6984126984126984, eval company precision:0.721311475409836
 
 eval position recall:0.7251732101616628, eval position precision:0.7929292929292929, eval position f1:0.7575392038600723
 
-**3层bilstm_crf:**
+
+**(3) 3层bilstm_crf:**
 
 batch_size: 128, epoch: 200, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
 
@@ -64,7 +66,8 @@ eval company recall:0.6851851851851852, eval company precision:0.744252873563218
 
 eval position recall:0.7090069284064665, eval position precision:0.7752525252525253, eval position f1:0.7406513872135103
 
-**4层bilstm_crf:**
+
+**(4) 4层bilstm_crf:**
 
 batch_size: 128, epoch: 100, loss: adam, rate: 0.01, num_unit: 150, dropout: 0.0
 
@@ -72,7 +75,8 @@ eval company recall:0.6772486772486772, eval company precision:0.727272727272727
 
 eval position recall:0.7251732101616628, eval position precision:0.7969543147208121, eval position f1:0.7593712212817412
 
-**带attention的bilstm_crf:**
+
+**(5) 带attention的bilstm_crf:**
 
 batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
 
@@ -80,7 +84,8 @@ eval company recall:0.7037037037037037, eval company precision:0.732782369146005
 
 eval position recall:0.7482678983833718, eval position precision:0.8120300751879699, eval position f1:0.7788461538461539
 
-**w2v + 一层bilstm_crf:**
+
+**(6) w2v + 一层bilstm_crf:**
 
 batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
 
@@ -88,7 +93,27 @@ eval company recall:0.7433862433862434, eval company precision:0.776243093922651
 
 eval position recall:0.7829099307159353, eval position precision:0.8411910669975186, eval position f1:0.8110047846889952
 
-**w2v + 两层bilstm_crf:**
+
+**(7) w2v + 两层bilstm_crf:**
+
+batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+
+eval company recall:0.7354497354497355, eval company precision:0.7616438356164383, eval company f1:0.7483176312247644
+
+eval position recall:0.792147806004619, eval position precision:0.8051643192488263, eval position f1:0.7986030267753202
+
+
+**(8) w2v + bilstm_crf + attention:**
+
+batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+
+eval company recall:0.7328042328042328, eval company precision:0.7824858757062146, eval company f1:0.7568306010928961
+
+eval position recall:0.74364896073903, eval position precision:0.817258883248731, eval position f1:0.7787182587666264
+
+
+**(9) bert_crf:**
+
 
 
 ## todo：
