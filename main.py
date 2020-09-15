@@ -15,7 +15,7 @@ config = loadyaml('conf/NER.yaml')
 logger = setlogger(config)
 
 # tf配置
-os.environ['CUDA_VISIBLE_DEVICES'] = '4'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # default: 0
 tf_config = tf.ConfigProto()
 tf_config.gpu_options.allow_growth = True
@@ -277,60 +277,50 @@ def test_w2v_bilstm_crf_attention():
     model.close()
 
 
-def test_bert_crf_tf():
-    os.environ['CUDA_VISIBLE_DEVICES'] = '3, 4'
-    tf_config = tf.ConfigProto(log_device_placement=True)
-    tf_config.gpu_options.per_process_gpu_memory_fraction = 0.9
-    # bert配置
+def test_bert_crf():
     bert_cfg = {
-        'bert_path': 'C:/数据/模型/chinese_L-12_H-768_A-12',
-        'train_path': './data/train_path',
-        'eval_path': './data/eval_path',
-        'max_length': 50,
+        'logger': logger,
+        'train_path': config['train_path'],
+        'eval_path': config['eval_path'],
+        'bert_path': config['bert_path'],
+        'max_length': 52,
         'batch_size': 64,
-        'save_path': './model/bert',
-        'learning_rate': 0.01,
-        'epoch': 10,
-        'save_checkpoints_steps': 100,
-        'tf_config': tf_config
+        'rate': 0.01,
+        'epoch': 50,
+        'loss': 'adam',
+        'tf_config': tf_config,
+        'model_path': config['bert_crf_model_path'],
+        'summary_path': config['bert_crf_summary_path']
     }
     model = BertCrf(**bert_cfg)
     model.fit()
-    print(model.evaluate())
-    model.save('./model/bert_crf')
-    model = BertCrf(**bert_cfg)
-    model.load('./model/bert_crf')
-    results = model.predict('招商银行田惠宇行长在股东大会上致辞')
-    print(results)
+    model.load(config['bert_crf_predict_path'])
+    print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
+    model.close()
 
 
-def test_bert_bilstm_crf_tf():
-    # tf配置
-    os.environ['CUDA_VISIBLE_DEVICES'] = '3, 4'
-    tf_config = tf.ConfigProto(log_device_placement=True)
-    tf_config.gpu_options.per_process_gpu_memory_fraction = 0.9
-    # bert配置
+def test_bert_bilstm_crf():
     bert_cfg = {
-        'bert_path': 'C:/数据/模型/chinese_L-12_H-768_A-12',
-        'train_path': './data/ner_train',
-        'eval_path': './data/ner_eval',
-        'num_units': 128,
-        'max_length': 128,
-        'batch_size': 32,
-        'save_path': '../model/bert',
-        'learning_rate': 2e-5,
-        'epoch': 3,
-        'save_checkpoints_steps': 100,
-        'tf_config': tf_config
+        'logger': logger,
+        'train_path': config['train_path'],
+        'eval_path': config['eval_path'],
+        'bert_path': config['bert_path'],
+        'max_length': 52,
+        'batch_size': 64,
+        'rate': 0.01,
+        'num_units': 200,
+        'dropout': 0.1,
+        'epoch': 50,
+        'loss': 'adam',
+        'tf_config': tf_config,
+        'model_path': config['bert_bilstm_crf_model_path'],
+        'summary_path': config['bert_bilstm_crf_summary_path']
     }
     model = BertBiLstmCrf(**bert_cfg)
     model.fit()
-    print(model.evaluate())
-    model.save('./model/bert_bilstm_crf')
-    model = BertBiLstmCrf(**bert_cfg)
-    model.load('./model/bert_bilstm_crf')
-    results = model.predict('招商银行田惠宇行长在股东大会上致辞')
-    print(results)
+    model.load(config['bert_bilstm_crf_predict_path'])
+    print(model.predict('招商银行田惠宇行长在股东大会上致辞'))
+    model.close()
 
 
 if __name__ == '__main__':
@@ -342,4 +332,4 @@ if __name__ == '__main__':
     # test_w2v_bilstm_crf_1()
     # test_w2v_bilstm_crf_2()
     # test_w2v_bilstm_crf_attention()
-    test_bert_crf_tf()
+    test_bert_crf()

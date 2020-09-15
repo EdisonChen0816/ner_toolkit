@@ -167,7 +167,7 @@ class WordpieceTokenizer(object):
 
 class FullTokenizer(object):
 
-    def __init__(self, vocab_file, do_lower_case=True):
+    def __init__(self, vocab_file):
         self.vocab = load_vocab(vocab_file)
         self.inv_vocab = {v: k for k, v in self.vocab.items()}
         self.basic_tokenizer = BasicTokenizer()

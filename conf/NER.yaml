@@ -47,6 +47,19 @@ w2v_bilstm_crf_attention_model_path: ./model/w2v_bilstm_crf_attention/model
 w2v_bilstm_crf_attention_summary_path: ./model/w2v_bilstm_crf_attention/summary
 w2v_bilstm_crf_attention_predict_path: ./model/w2v_bilstm_crf_attention
 
+# bert
+bert_path: C:/数据/模型/chinese_L-12_H-768_A-12
+
+# bert_crf
+bert_crf_model_path: ./model/bert_crf/model
+bert_crf_summary_path: ./model/bert_crf/summary
+bert_crf_predict_path: ./model/bert_crf
+
+# bert_bilstm_crf
+bert_bilstm_crf_model_path: ./model/bert_bilstm_crf/model
+bert_bilstm_crf_summary_path: ./model/bert_bilstm_crf/summary
+bert_bilstm_crf_predict_path: ./model/bert_bilstm_crf
+
 # logger setting
 Server_Name: NER
 LogLevel_Console: 10

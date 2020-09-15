@@ -1,5 +1,6 @@
 # 命名实体识别工具(tensorflow版)
 
+
 ## 字向量模型
 我们自己训练的模型，采用中文维基百科数据作为训练语料
 
@@ -8,6 +9,7 @@
 链接：https://pan.baidu.com/s/1C1qB2b6HyzOpj3eqDehhEQ 提取码：5b6y
 
 下载w2v.model.vectors.npy，放在 /model/w2v 目录下
+
 
 ## 数据：
 ac自动机测试数据是省市区数据，来自网络。
@@ -22,6 +24,7 @@ ac自动机测试数据是省市区数据，来自网络。
 
 处理后的验证数据：/data/eval.txt
 
+
 ## demo
 详见：main.py
 
@@ -35,7 +38,18 @@ ac自动机匹配： test_ac_match
 
 4层bilstm_crf: test_bilstm_crf_4
 
-带attention的bilstm_crf: test_bilstm_crf_attention
+bilstm_crf + attention: test_bilstm_crf_attention
+
+w2v + 1层bilstm_crf: test_w2v_bilstm_crf_1
+
+w2v + 2层bilstm_crf: test_w2v_bilstm_crf_2
+
+w2v + 1层bilstm_crf + attention: test_w2v_bilstm_crf_attention
+
+bert_crf: test_bert_crf
+
+bert + bilstm_crf: test_bert_bilstm_crf
+
 
 ## 模型参数及效果
 /model中的模型训练参数如下：
@@ -114,6 +128,8 @@ eval position recall:0.74364896073903, eval position precision:0.817258883248731
 
 **(9) bert_crf:**
 
+
+**(10) bert + bilstm_crf:**
 
 
 ## todo：
