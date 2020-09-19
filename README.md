@@ -128,6 +128,12 @@ eval position recall:0.74364896073903, eval position precision:0.817258883248731
 
 **(9) bert_crf:**
 
+batch_size: 16, epoch: 200, loss: sgd, rate: 0.01, max_len: 128, encoder_layer: 12
+
+eval company recall:0.5714285714285714, eval company precision:0.6390532544378699, eval company f1:0.6033519553072626
+
+eval position recall:0.6018518518518519, eval position precision:0.7162534435261708, eval position f1:0.6540880503144655
+
 
 **(10) bert + bilstm_crf:**
 

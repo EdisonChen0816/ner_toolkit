@@ -1,15 +1,15 @@
 # encoding=utf-8
-import os
 import tensorflow as tf
 from src.bert import modeling, tokenization
 import random
 import numpy as np
+import os
 
 
 class BertBiLstmCrf:
 
     def __init__(self, logger, train_path, eval_path, bert_path, max_length, num_units, batch_size, rate, epoch,
-                 loss, dropout, tf_config, model_path, summary_path, tag2label=None):
+                 loss, dropout, tf_config, model_path, summary_path, tag2label=None, encoder_layer=11):
         self.logger = logger
         self.train_path = train_path
         self.eval_path = eval_path
@@ -21,6 +21,7 @@ class BertBiLstmCrf:
         self.epoch = epoch
         self.loss = loss
         self.dropout = dropout
+        self.encoder_layer = encoder_layer
         self.tf_config = tf_config
         self.model_path = model_path
         self.summary_path = summary_path
@@ -84,11 +85,11 @@ class BertBiLstmCrf:
         bert_config = modeling.BertConfig.from_json_file(bert_config_file)
         bert_model = modeling.BertModel(
             config=bert_config,
-            is_training=True,
+            is_training=False,
             input_ids=input_ids,
             input_mask=input_mask,
             use_one_hot_embeddings=False)
-        bert_embedding = bert_model.get_sequence_output()
+        bert_embedding = bert_model.get_all_encoder_layers()[self.encoder_layer]
         cell_fw = tf.nn.rnn_cell.LSTMCell(self.num_units)
         cell_fw = tf.nn.rnn_cell.DropoutWrapper(cell_fw, output_keep_prob=1-self.dropout)
         cell_bw = tf.nn.rnn_cell.LSTMCell(self.num_units)
@@ -109,15 +110,15 @@ class BertBiLstmCrf:
 
     def fit(self):
         train_data = self.get_input_feature(self.train_path)
+        input_ids = tf.placeholder(shape=[None, None], dtype=tf.int32, name="input_ids")
+        input_mask = tf.placeholder(shape=[None, None], dtype=tf.int32, name="input_mask")
+        seq_lens = tf.placeholder(tf.int32, [None], name='seq_lens')
+        labels = tf.placeholder(tf.int32, [None, None], name='labels')
+        preds_seq, log_likelihood = self.model(input_ids, input_mask, seq_lens, labels)
         init_checkpoint = os.path.join(self.bert_path, 'bert_model.ckpt')
         tvars = tf.trainable_variables()
         assignment_map, _ = modeling.get_assignment_map_from_checkpoint(tvars, init_checkpoint)
         tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
-        input_ids = tf.placeholder(shape=[None, None], dtype=tf.int32, name="inputs_ids")
-        input_mask = tf.placeholder(shape=[None, None], dtype=tf.int32, name="inputs_mask")
-        seq_lens = tf.placeholder(tf.int32, [None], name='seq_lens')
-        labels = tf.placeholder(tf.int32, [None, None], name='labels')
-        preds_seq, log_likelihood = self.model(input_ids, input_mask, seq_lens, labels)
         tf.add_to_collection('preds_seq', preds_seq)
         loss = -log_likelihood / tf.cast(seq_lens, tf.float32)
         loss = tf.reduce_mean(loss)
@@ -229,6 +230,7 @@ class BertBiLstmCrf:
         self.input_ids = graph.get_tensor_by_name('input_ids:0')
         self.input_mask = graph.get_tensor_by_name('input_mask:0')
         self.labels = graph.get_tensor_by_name('labels:0')
+        self.seq_lens = graph.get_tensor_by_name('seq_lens:0')
         self.preds_seq = tf.get_collection('preds_seq')
 
     def close(self):
@@ -236,6 +238,7 @@ class BertBiLstmCrf:
 
     def _predict_text_process(self, text):
         label = []
+        seq_len = len(text)
         tokens = self.tokenizer.tokenize(text)
         tokens = ['[CLS]'] + tokens[:self.max_length - 2] + ['[SEP]']
         input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
@@ -243,9 +246,9 @@ class BertBiLstmCrf:
         input_ids += [0] * (self.max_length - len(input_ids))
         input_mask += [0] * (self.max_length - len(input_mask))
         label += [self.tag2label['O']] * (self.max_length - len(label))
-        return np.asarray([input_ids]), np.asarray([input_mask]), np.asarray([label])
+        return np.asarray([input_ids]), np.asarray([input_mask]), np.asarray([seq_len]), np.asarray([label])
 
     def predict(self, text):
-        input_ids, input_mask, label = self._predict_text_process(text)
-        pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.input_ids: input_ids, self.input_mask: input_mask, self.labels: label})
+        input_ids, input_mask, seq_len, label = self._predict_text_process(text)
+        pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.input_ids: input_ids, self.input_mask: input_mask, self.seq_lens: seq_len, self.labels: label})
         return pred

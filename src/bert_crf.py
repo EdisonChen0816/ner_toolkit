@@ -1,15 +1,15 @@
 # encoding=utf-8
-import os
 import tensorflow as tf
 from src.bert import modeling, tokenization
 import random
 import numpy as np
+import os
 
 
 class BertCrf:
 
     def __init__(self, logger, train_path, eval_path, bert_path, max_length, batch_size, rate, epoch,
-                 loss, tf_config, model_path, summary_path, tag2label=None):
+                 loss, tf_config, model_path, summary_path, tag2label=None, encoder_layer=11):
         self.logger = logger
         self.train_path = train_path
         self.eval_path = eval_path
@@ -19,6 +19,7 @@ class BertCrf:
         self.rate = rate
         self.epoch = epoch
         self.loss = loss
+        self.encoder_layer = encoder_layer
         self.tf_config = tf_config
         self.model_path = model_path
         self.summary_path = summary_path
@@ -45,6 +46,7 @@ class BertCrf:
         with open(data_path, 'r', encoding='utf-8') as f:
             for line in f:
                 if '\n' == line:
+                    seq_len = len(sententce)
                     tokens = self.tokenizer.tokenize(sententce)
                     tokens = ['[CLS]'] + tokens[:self.max_length - 2] + ['[SEP]']
                     input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
@@ -52,7 +54,7 @@ class BertCrf:
                     input_ids += [0] * (self.max_length - len(input_ids))
                     input_mask += [0] * (self.max_length - len(input_mask))
                     label += [self.tag2label['O']] * (self.max_length - len(label))
-                    data.append([input_ids, input_mask, label])
+                    data.append([input_ids, input_mask, seq_len, label])
                     sententce = ''
                     label = [self.tag2label['O']]
                 else:
@@ -64,27 +66,28 @@ class BertCrf:
     def batch_yield(self, data, shuffle=False):
         if shuffle:
             random.shuffle(data)
-        input_ids, input_mask, labels = [], [], []
-        for (input_ids_, input_mask_, label_) in data:
+        input_ids, input_mask, seq_lens, labels = [], [], [], []
+        for (input_ids_, input_mask_, seq_len_, label_) in data:
             if len(input_ids) == self.batch_size:
-                yield input_ids, input_mask, np.asarray(labels)
-                input_ids, input_mask, labels = [], [], []
+                yield input_ids, input_mask, np.asarray(seq_lens), np.asarray(labels)
+                input_ids, input_mask, seq_lens, labels = [], [], [], []
             input_ids.append(input_ids_)
             input_mask.append(input_mask_)
+            seq_lens.append(seq_len_)
             labels.append(label_)
         if len(input_ids) != 0:
-            yield input_ids, input_mask, np.asarray(labels)
+            yield input_ids, input_mask, np.asarray(seq_lens), np.asarray(labels)
 
     def model(self, input_ids, input_mask, seq_lens, labels):
         bert_config_file = os.path.join(self.bert_path, 'bert_config.json')
         bert_config = modeling.BertConfig.from_json_file(bert_config_file)
         bert_model = modeling.BertModel(
             config=bert_config,
-            is_training=True,
+            is_training=False,
             input_ids=input_ids,
             input_mask=input_mask,
             use_one_hot_embeddings=False)
-        bert_embedding = bert_model.get_sequence_output()
+        bert_embedding = bert_model.get_all_encoder_layers()[self.encoder_layer]
         logits_seq = tf.layers.dense(bert_embedding, len(self.tag2label))
         log_likelihood, transition_matrix = tf.contrib.crf.crf_log_likelihood(logits_seq, labels, seq_lens)
         preds_seq, crf_scores = tf.contrib.crf.crf_decode(logits_seq, transition_matrix, seq_lens)
@@ -92,17 +95,12 @@ class BertCrf:
 
     def fit(self):
         train_data = self.get_input_feature(self.train_path)
-        init_checkpoint = os.path.join(self.bert_path, 'bert_model.ckpt')
-        tvars = tf.trainable_variables()
-        assignment_map, _ = modeling.get_assignment_map_from_checkpoint(tvars, init_checkpoint)
-        tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
-        input_ids = tf.placeholder(shape=[None, None], dtype=tf.int32, name="inputs_ids")
-        input_mask = tf.placeholder(shape=[None, None], dtype=tf.int32, name="inputs_mask")
+        input_ids = tf.placeholder(shape=[None, None], dtype=tf.int32, name='input_ids')
+        input_mask = tf.placeholder(shape=[None, None], dtype=tf.int32, name='input_mask')
+        seq_lens = tf.placeholder(shape=[None], dtype=tf.int32, name='seq_lens')
         labels = tf.placeholder(tf.int32, [None, None], name='labels')
-        inputs_seq_len = tf.reduce_sum(input_mask, axis=-1)
-        preds_seq, log_likelihood = self.model(input_ids, input_mask, inputs_seq_len, labels)
-        tf.add_to_collection('preds_seq', preds_seq)
-        loss = -log_likelihood / tf.cast(inputs_seq_len, tf.float32)
+        preds_seq, log_likelihood = self.model(input_ids, input_mask, seq_lens, labels)
+        loss = -log_likelihood / tf.cast(seq_lens, tf.float32)
         loss = tf.reduce_mean(loss)
         if 'sgd' == self.loss.lower():
             train_op = tf.train.GradientDescentOptimizer(self.rate).minimize(loss)
@@ -110,20 +108,25 @@ class BertCrf:
             train_op = tf.train.AdamOptimizer(self.rate).minimize(loss)
         else:
             train_op = tf.train.GradientDescentOptimizer(self.rate).minimize(loss)
+        init_checkpoint = os.path.join(self.bert_path, 'bert_model.ckpt')
+        tvars = tf.trainable_variables()
+        (assignment_map, _) = modeling.get_assignment_map_from_checkpoint(tvars, init_checkpoint)
+        tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
+        tf.add_to_collection('preds_seq', preds_seq)
         saver = tf.train.Saver(tf.global_variables())
         with tf.Session(config=self.tf_config) as sess:
             sess.run(tf.global_variables_initializer())
             for i in range(self.epoch):
-                for step, (input_ids_batch, input_mask_batch, labels_batch) in enumerate(self.batch_yield(train_data)):
+                for step, (input_ids_batch, input_mask_batch, seq_lens_batch, labels_batch) in enumerate(self.batch_yield(train_data)):
                     _, curr_loss = sess.run([train_op, loss],
-                                            feed_dict={input_ids: input_ids_batch, input_mask: input_mask_batch, labels: labels_batch})
+                                            feed_dict={input_ids: input_ids_batch, input_mask: input_mask_batch, seq_lens: seq_lens_batch, labels: labels_batch})
                     if step % 10 == 0:
                         self.logger.info('epoch:%d, batch: %d, current loss: %f' % (i, step + 1, curr_loss))
             saver.save(sess, self.model_path)
             tf.summary.FileWriter(self.summary_path, sess.graph)
-            self.evaluate(sess, input_ids, input_mask, labels, preds_seq)
+            self.evaluate(sess, input_ids, input_mask, seq_lens, labels, preds_seq)
 
-    def evaluate(self, sess, input_ids, input_mask, labels, preds_seq):
+    def evaluate(self, sess, input_ids, input_mask, seq_lens, labels, preds_seq):
         eval_data = self.get_input_feature(self.eval_path)
         tp_com = 0  # 正类判定为正类
         fp_com = 0  # 负类判定为正类
@@ -131,8 +134,8 @@ class BertCrf:
         tp_pos = 0  # 正类判定为正类
         fp_pos = 0  # 负类判定为正类
         fn_pos = 0  # 正类判定为负类
-        for _, (input_ids_batch, input_mask_batch, labels_batch) in enumerate(self.batch_yield(eval_data)):
-            preds = sess.run(preds_seq, feed_dict={input_ids: input_ids_batch, input_mask: input_mask_batch, labels: labels_batch})
+        for _, (input_ids_batch, input_mask_batch, seq_lens_batch, labels_batch) in enumerate(self.batch_yield(eval_data)):
+            preds = sess.run(preds_seq, feed_dict={input_ids: input_ids_batch, input_mask: input_mask_batch, seq_lens: seq_lens_batch, labels: labels_batch})
             for i in range(len(preds)):
                 pred = preds[i]
                 label = labels_batch[i]
@@ -211,6 +214,7 @@ class BertCrf:
         graph = tf.get_default_graph()
         self.input_ids = graph.get_tensor_by_name('input_ids:0')
         self.input_mask = graph.get_tensor_by_name('input_mask:0')
+        self.seq_lens = graph.get_tensor_by_name('seq_lens:0')
         self.labels = graph.get_tensor_by_name('labels:0')
         self.preds_seq = tf.get_collection('preds_seq')
 
@@ -219,6 +223,7 @@ class BertCrf:
 
     def _predict_text_process(self, text):
         label = []
+        seq_len = len(text)
         tokens = self.tokenizer.tokenize(text)
         tokens = ['[CLS]'] + tokens[:self.max_length - 2] + ['[SEP]']
         input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
@@ -226,9 +231,9 @@ class BertCrf:
         input_ids += [0] * (self.max_length - len(input_ids))
         input_mask += [0] * (self.max_length - len(input_mask))
         label += [self.tag2label['O']] * (self.max_length - len(label))
-        return np.asarray([input_ids]), np.asarray([input_mask]), np.asarray([label])
+        return np.asarray([input_ids]), np.asarray([input_mask]), np.asarray([seq_len]), np.asarray([label])
 
     def predict(self, text):
-        input_ids, input_mask, label = self._predict_text_process(text)
-        pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.input_ids: input_ids, self.input_mask: input_mask, self.labels: label})
+        input_ids, input_mask, seq_len, label = self._predict_text_process(text)
+        pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.input_ids: input_ids, self.input_mask: input_mask, self.seq_lens: seq_len, self.labels: label})
         return pred

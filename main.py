@@ -284,10 +284,11 @@ def test_bert_crf():
         'eval_path': config['eval_path'],
         'bert_path': config['bert_path'],
         'max_length': 52,
-        'batch_size': 64,
+        'batch_size': 1,
         'rate': 0.01,
         'epoch': 50,
         'loss': 'adam',
+        'encoder_layer': 11,
         'tf_config': tf_config,
         'model_path': config['bert_crf_model_path'],
         'summary_path': config['bert_crf_summary_path']
@@ -312,6 +313,7 @@ def test_bert_bilstm_crf():
         'dropout': 0.1,
         'epoch': 50,
         'loss': 'adam',
+        'encoder_layer': 11,
         'tf_config': tf_config,
         'model_path': config['bert_bilstm_crf_model_path'],
         'summary_path': config['bert_bilstm_crf_summary_path']
@@ -333,3 +335,4 @@ if __name__ == '__main__':
     # test_w2v_bilstm_crf_2()
     # test_w2v_bilstm_crf_attention()
     test_bert_crf()
+    # test_bert_bilstm_crf()

@@ -307,8 +307,9 @@ class W2VBiLstmCrf:
         label = []
         for word in list(text):
             if word not in self.w2v:
-                word = 'unknown'
-            seq.append(self.w2v[word])
+                seq.append([0] * self.embedding_dim)
+            else:
+                seq.append(self.w2v[word])
             label.append(-1)
         seq_len = len(seq)
         if seq_len > self.max_len:
@@ -316,7 +317,7 @@ class W2VBiLstmCrf:
             label = label[: self.max_len]
         else:
             for i in range(self.max_len - seq_len):
-                seq.append([0] * 300)
+                seq.append([0] * self.embedding_dim)
                 label.append(self.tag2label['O'])
         return np.asarray([seq]), np.asarray([seq_len]), np.asarray([label])
 
