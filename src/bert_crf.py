@@ -40,6 +40,11 @@ class BertCrf:
             self.label2tag[self.tag2label[key]] = key
 
     def get_input_feature(self, data_path):
+        '''
+        获取输入数据特征
+        :param data_path:
+        :return:
+        '''
         data = []
         sententce = ''
         label = [self.tag2label['O']]  # 对应起始[cls]
@@ -64,6 +69,12 @@ class BertCrf:
         return data
 
     def batch_yield(self, data, shuffle=False):
+        '''
+        产生batch数据
+        :param data:
+        :param shuffle:
+        :return:
+        '''
         if shuffle:
             random.shuffle(data)
         input_ids, input_mask, seq_lens, labels = [], [], [], []
@@ -79,6 +90,14 @@ class BertCrf:
             yield input_ids, input_mask, np.asarray(seq_lens), np.asarray(labels)
 
     def model(self, input_ids, input_mask, seq_lens, labels):
+        '''
+        构建模型
+        :param input_ids:
+        :param input_mask:
+        :param seq_lens:
+        :param labels:
+        :return:
+        '''
         bert_config_file = os.path.join(self.bert_path, 'bert_config.json')
         bert_config = modeling.BertConfig.from_json_file(bert_config_file)
         bert_model = modeling.BertModel(
@@ -94,6 +113,10 @@ class BertCrf:
         return preds_seq, log_likelihood
 
     def fit(self):
+        '''
+        训练模型
+        :return:
+        '''
         train_data = self.get_input_feature(self.train_path)
         input_ids = tf.placeholder(shape=[None, None], dtype=tf.int32, name='input_ids')
         input_mask = tf.placeholder(shape=[None, None], dtype=tf.int32, name='input_mask')
@@ -127,6 +150,16 @@ class BertCrf:
             self.evaluate(sess, input_ids, input_mask, seq_lens, labels, preds_seq)
 
     def evaluate(self, sess, input_ids, input_mask, seq_lens, labels, preds_seq):
+        '''
+        评估模型
+        :param sess:
+        :param input_ids:
+        :param input_mask:
+        :param seq_lens:
+        :param labels:
+        :param preds_seq:
+        :return:
+        '''
         eval_data = self.get_input_feature(self.eval_path)
         tp_com = 0  # 正类判定为正类
         fp_com = 0  # 负类判定为正类
@@ -219,9 +252,18 @@ class BertCrf:
         self.preds_seq = tf.get_collection('preds_seq')
 
     def close(self):
+        '''
+        关闭session
+        :return:
+        '''
         self.pred_sess.close()
 
     def _predict_text_process(self, text):
+        '''
+        对输入数据预处理
+        :param text:
+        :return:
+        '''
         label = []
         seq_len = len(text)
         tokens = self.tokenizer.tokenize(text)
@@ -234,6 +276,11 @@ class BertCrf:
         return np.asarray([input_ids]), np.asarray([input_mask]), np.asarray([seq_len]), np.asarray([label])
 
     def predict(self, text):
+        '''
+        预测
+        :param text: string类型
+        :return:
+        '''
         input_ids, input_mask, seq_len, label = self._predict_text_process(text)
         pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.input_ids: input_ids, self.input_mask: input_mask, self.seq_lens: seq_len, self.labels: label})
         return pred

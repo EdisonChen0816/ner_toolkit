@@ -300,9 +300,18 @@ class W2VBiLstmCrf:
         self.preds_seq = tf.get_collection('preds_seq')
 
     def close(self):
+        '''
+        关闭session
+        :return:
+        '''
         self.pred_sess.close()
 
     def _predict_text_process(self, text):
+        '''
+        对输入数据预处理
+        :param text:
+        :return:
+        '''
         seq = []
         label = []
         for word in list(text):
@@ -322,6 +331,11 @@ class W2VBiLstmCrf:
         return np.asarray([seq]), np.asarray([seq_len]), np.asarray([label])
 
     def predict(self, text):
+        '''
+        预测
+        :param text: string类型
+        :return:
+        '''
         seq_pred, seq_len_pred, label_pred = self._predict_text_process(text)
         pred, _ = self.pred_sess.run(self.preds_seq, feed_dict={self.seqs: seq_pred, self.seq_lens: seq_len_pred, self.labels: label_pred, self.keep_prob: 1.0})
         return pred
