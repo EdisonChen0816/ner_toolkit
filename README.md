@@ -137,6 +137,12 @@ eval position recall:0.6018518518518519, eval position precision:0.7162534435261
 
 **(10) bert + bilstm_crf:**
 
+batch_size: 32, epoch: 300, loss: sgd, rate: 0.01, num_units: 128, dropout: 0.1, max_len: 64, encoder_layer: 9
+
+eval company recall:0.6058201058201058, eval company precision:0.659942363112392, eval company f1:0.6317241379310344
+
+eval position recall:0.6319444444444444, eval position precision:0.7418478260869565, eval position f1:0.6825
+
 
 ## todo：
 增加带词汇增强的命名实体识别方法
