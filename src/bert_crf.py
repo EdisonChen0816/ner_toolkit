@@ -51,7 +51,7 @@ class BertCrf:
         with open(data_path, 'r', encoding='utf-8') as f:
             for line in f:
                 if '\n' == line:
-                    seq_len = len(sententce)
+                    seq_len = len(sententce) + 2
                     tokens = self.tokenizer.tokenize(sententce)
                     tokens = ['[CLS]'] + tokens[:self.max_length - 2] + ['[SEP]']
                     input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
@@ -172,8 +172,8 @@ class BertCrf:
             for i in range(len(preds)):
                 pred = preds[i]
                 label = labels_batch[i]
-                true_com, true_pos = self.label2entity(label)
-                pred_com, pred_pos = self.label2entity(pred)
+                true_com, true_pos = self.label2entity(label[1: seq_lens_batch[i]-1])
+                pred_com, pred_pos = self.label2entity(pred[1: seq_lens_batch[i]-1])
                 tp_com += len(true_com & pred_com)
                 fp_com += len(pred_com - true_com)
                 fn_com += len(true_com - pred_com)
