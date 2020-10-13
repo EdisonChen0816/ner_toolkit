@@ -19,7 +19,7 @@ def setlogger(config):
         logger.addHandler(ch)
     # setup file logging path
     if cfg['LogLevel_File'] > 0:
-        fh = logging.FileHandler(cfg['LogFile'])
+        fh = logging.FileHandler(cfg['LogFile'], encoding='utf-8', mode='a')
         fh.setLevel(cfg["LogLevel_File"])
         fh.setFormatter(formatter)
         logger.addHandler(fh)
