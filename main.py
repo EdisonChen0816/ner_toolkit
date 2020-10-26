@@ -307,7 +307,7 @@ def test_bert_bilstm_crf():
         'eval_path': config['eval_path'],
         'bert_path': config['bert_path'],
         'max_length': 52,
-        'batch_size': 64,
+        'batch_size': 16,
         'rate': 0.01,
         'num_units': 200,
         'dropout': 0.1,
@@ -334,5 +334,5 @@ if __name__ == '__main__':
     # test_w2v_bilstm_crf_1()
     # test_w2v_bilstm_crf_2()
     # test_w2v_bilstm_crf_attention()
-    test_bert_crf()
-    # test_bert_bilstm_crf()
+    # test_bert_crf()
+    test_bert_bilstm_crf()

@@ -139,9 +139,9 @@ eval position recall:0.6018518518518519, eval position precision:0.7162534435261
 
 batch_size: 32, epoch: 300, loss: sgd, rate: 0.01, num_units: 128, dropout: 0.1, max_len: 64, encoder_layer: 9
 
-eval company recall:0.6058201058201058, eval company precision:0.659942363112392, eval company f1:0.6317241379310344
+eval company recall:0.6613756613756614, eval company precision:0.7246376811594203, eval company f1:0.6915629322268325
 
-eval position recall:0.6319444444444444, eval position precision:0.7418478260869565, eval position f1:0.6825
+eval position recall:0.7222222222222222, eval position precision:0.78, eval position f1:0.7500000000000001
 
 
 ## todo：

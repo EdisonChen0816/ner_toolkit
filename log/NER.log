@@ -650,3 +650,4 @@
 2020-09-02 18:03:06,102|INFO:epoch:17, batch: 61, current loss: 0.481772
 2020-09-02 18:03:07,169|INFO:epoch:17, batch: 71, current loss: 0.618133
 2020-09-19 19:08:34,267|INFO:epoch:0, batch: 1, current loss: 1.609518
+2020-10-23 23:11:04,197|INFO:epoch:0, batch: 1, current loss: 2.246732

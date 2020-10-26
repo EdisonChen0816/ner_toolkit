@@ -47,21 +47,21 @@ class BertCrf:
         '''
         data = []
         sententce = ''
-        label = [self.tag2label['O']]  # 对应起始[cls]
+        label = []  # 对应起始[cls]
         with open(data_path, 'r', encoding='utf-8') as f:
             for line in f:
                 if '\n' == line:
-                    seq_len = len(sententce) + 2
+                    seq_len = len(sententce)
                     tokens = self.tokenizer.tokenize(sententce)
                     tokens = ['[CLS]'] + tokens[:self.max_length - 2] + ['[SEP]']
                     input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
                     input_mask = [1] * len(input_ids)
                     input_ids += [0] * (self.max_length - len(input_ids))
                     input_mask += [0] * (self.max_length - len(input_mask))
-                    label += [self.tag2label['O']] * (self.max_length - len(label))
+                    label += [self.tag2label['O']] * (self.max_length - 2 - len(label))
                     data.append([input_ids, input_mask, seq_len, label])
                     sententce = ''
-                    label = [self.tag2label['O']]
+                    label = []
                 else:
                     word, tag = line.replace('\n', '').split('\t')
                     sententce += word
@@ -107,7 +107,7 @@ class BertCrf:
             input_mask=input_mask,
             use_one_hot_embeddings=False)
         bert_embedding = bert_model.get_all_encoder_layers()[self.encoder_layer]
-        logits_seq = tf.layers.dense(bert_embedding, len(self.tag2label))
+        logits_seq = tf.layers.dense(bert_embedding[, 1: -1, ], len(self.tag2label))
         log_likelihood, transition_matrix = tf.contrib.crf.crf_log_likelihood(logits_seq, labels, seq_lens)
         preds_seq, crf_scores = tf.contrib.crf.crf_decode(logits_seq, transition_matrix, seq_lens)
         return preds_seq, log_likelihood
@@ -172,8 +172,8 @@ class BertCrf:
             for i in range(len(preds)):
                 pred = preds[i]
                 label = labels_batch[i]
-                true_com, true_pos = self.label2entity(label[1: seq_lens_batch[i]-1])
-                pred_com, pred_pos = self.label2entity(pred[1: seq_lens_batch[i]-1])
+                true_com, true_pos = self.label2entity(label[: seq_lens_batch[i]])
+                pred_com, pred_pos = self.label2entity(pred[: seq_lens_batch[i]])
                 tp_com += len(true_com & pred_com)
                 fp_com += len(pred_com - true_com)
                 fn_com += len(true_com - pred_com)
