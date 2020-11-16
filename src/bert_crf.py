@@ -107,7 +107,7 @@ class BertCrf:
             input_mask=input_mask,
             use_one_hot_embeddings=False)
         bert_embedding = bert_model.get_all_encoder_layers()[self.encoder_layer]
-        logits_seq = tf.layers.dense(bert_embedding[, 1: -1, ], len(self.tag2label))
+        logits_seq = tf.layers.dense(bert_embedding[:, 1:-1, :], len(self.tag2label))
         log_likelihood, transition_matrix = tf.contrib.crf.crf_log_likelihood(logits_seq, labels, seq_lens)
         preds_seq, crf_scores = tf.contrib.crf.crf_decode(logits_seq, transition_matrix, seq_lens)
         return preds_seq, log_likelihood
