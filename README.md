@@ -56,7 +56,7 @@ bert + bilstm_crf: test_bert_bilstm_crf
 
 **(1) 1层bilstm_crf:** 
 
-batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 256, dropout: 0.1
+batch_size: 64, epoch: 200, loss: adam, rate: 0.01, num_unit: 256, dropout: 0.1
 
 eval company recall:0.7301587301587301, eval company precision:0.7582417582417582, eval company f1:0.7439353099730458
 
@@ -65,7 +65,7 @@ eval position recall:0.7505773672055427, eval position precision:0.8186397984886
 
 **(2) 2层bilstm_crf:**
 
-batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 220, dropout: 0.0
+batch_size: 64, epoch: 200, loss: adam, rate: 0.01, num_unit: 220, dropout: 0.0
 
 eval company recall:0.6984126984126984, eval company precision:0.7213114754098361, eval company f1:0.7096774193548387
 
@@ -83,7 +83,7 @@ eval position recall:0.7090069284064665, eval position precision:0.7752525252525
 
 **(4) 4层bilstm_crf:**
 
-batch_size: 128, epoch: 100, loss: adam, rate: 0.01, num_unit: 150, dropout: 0.0
+batch_size: 128, epoch: 200, loss: adam, rate: 0.01, num_unit: 150, dropout: 0.0
 
 eval company recall:0.6772486772486772, eval company precision:0.7272727272727273, eval company f1:0.7013698630136986
 
@@ -92,7 +92,7 @@ eval position recall:0.7251732101616628, eval position precision:0.7969543147208
 
 **(5) 带attention的bilstm_crf:**
 
-batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+batch_size: 64, epoch: 200, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
 
 eval company recall:0.7037037037037037, eval company precision:0.7327823691460055, eval company f1:0.717948717948718
 
@@ -101,7 +101,7 @@ eval position recall:0.7482678983833718, eval position precision:0.8120300751879
 
 **(6) w2v + 一层bilstm_crf:**
 
-batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+batch_size: 64, epoch: 200, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
 
 eval company recall:0.7433862433862434, eval company precision:0.7762430939226519, eval company f1:0.7594594594594595
 
@@ -110,7 +110,7 @@ eval position recall:0.7829099307159353, eval position precision:0.8411910669975
 
 **(7) w2v + 两层bilstm_crf:**
 
-batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+batch_size: 64, epoch: 200, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
 
 eval company recall:0.7354497354497355, eval company precision:0.7616438356164383, eval company f1:0.7483176312247644
 
@@ -119,7 +119,7 @@ eval position recall:0.792147806004619, eval position precision:0.80516431924882
 
 **(8) w2v + bilstm_crf + attention:**
 
-batch_size: 64, epoch: 50, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
+batch_size: 64, epoch: 200, loss: adam, rate: 0.01, num_unit: 200, dropout: 0.1
 
 eval company recall:0.7328042328042328, eval company precision:0.7824858757062146, eval company f1:0.7568306010928961
 
@@ -128,20 +128,21 @@ eval position recall:0.74364896073903, eval position precision:0.817258883248731
 
 **(9) bert_crf:**
 
-batch_size: 16, epoch: 200, loss: sgd, rate: 0.01, max_len: 128, encoder_layer: 12
 
-eval company recall:0.5714285714285714, eval company precision:0.6390532544378699, eval company f1:0.6033519553072626
-
-eval position recall:0.6018518518518519, eval position precision:0.7162534435261708, eval position f1:0.6540880503144655
-
-
-**(10) bert + bilstm_crf:**
-
-batch_size: 32, epoch: 300, loss: sgd, rate: 0.01, num_units: 128, dropout: 0.1, max_len: 64, encoder_layer: 9
+batch_size: 32, epoch: 500, loss: sgd, rate: 0.01, max_len: 64, encoder_layer: 11
 
 eval company recall:0.6613756613756614, eval company precision:0.7246376811594203, eval company f1:0.6915629322268325
 
 eval position recall:0.7222222222222222, eval position precision:0.78, eval position f1:0.7500000000000001
+
+
+**(10) bert + bilstm_crf:**
+
+batch_size: 32, epoch: 500, loss: sgd, rate: 0.01, num_units: 128, dropout: 0.1, max_len: 64, encoder_layer: 11
+
+eval company recall:0.7435897789091218, eval company precision:0.7846376811594203, eval company f1:0.7635624605658261
+
+eval position recall:0.7832222222222222, eval position precision:0.8446376811594203, eval position f1:0.812771418764053
 
 
 ## todo：

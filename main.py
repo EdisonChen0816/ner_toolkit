@@ -15,7 +15,7 @@ config = loadyaml('conf/NER.yaml')
 logger = setlogger(config)
 
 # tf配置
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '4'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # default: 0
 tf_config = tf.ConfigProto()
 tf_config.gpu_options.allow_growth = True
@@ -46,7 +46,7 @@ def test_bilstm_crf_1():
         'eval_path': config['eval_path'],
         'max_len': 50,
         'batch_size': 64,
-        'epoch': 50,
+        'epoch': 200,
         'loss': 'adam',
         'rate': 0.01,
         'num_units': 256,
@@ -76,7 +76,7 @@ def test_bilstm_crf_2():
         'eval_path': config['eval_path'],
         'max_len': 50,
         'batch_size': 64,
-        'epoch': 50,
+        'epoch': 200,
         'loss': 'adam',
         'rate': 0.01,
         'num_units': 220,
@@ -105,13 +105,13 @@ def test_bilstm_crf_3():
         'train_path': config['train_path'],
         'eval_path': config['eval_path'],
         'max_len': 50,
-        'batch_size': 64,
-        'epoch': 50,
-        'loss': 'sgd',
+        'batch_size': 128,
+        'epoch': 200,
+        'loss': 'adam',
         'rate': 0.01,
         'num_units': 200,
         'num_layers': 3,
-        'dropout': 0.0,
+        'dropout': 0.1,
         'tf_config': tf_config,
         'model_path': config['bilstm_crf_3_model_path'],
         'summary_path': config['bilstm_crf_3_summary_path'],
@@ -136,10 +136,10 @@ def test_bilstm_crf_4():
         'eval_path': config['eval_path'],
         'max_len': 50,
         'batch_size': 128,
-        'epoch': 50,
-        'loss': 'sgd',
+        'epoch': 200,
+        'loss': 'adam',
         'rate': 0.01,
-        'num_units': 64,
+        'num_units': 150,
         'num_layers': 4,
         'dropout': 0.0,
         'tf_config': tf_config,
@@ -165,13 +165,13 @@ def test_bilstm_crf_attention():
         'train_path': config['train_path'],
         'eval_path': config['eval_path'],
         'max_len': 50,
-        'batch_size': 128,
-        'epoch': 50,
-        'loss': 'sgd',
+        'batch_size': 64,
+        'epoch': 200,
+        'loss': 'adam',
         'rate': 0.01,
-        'num_units': 64,
-        'num_layers': 4,
-        'dropout': 0.0,
+        'num_units': 200,
+        'num_layers': 1,
+        'dropout': 0.1,
         'tf_config': tf_config,
         'model_path': config['bilstm_crf_attention_model_path'],
         'summary_path': config['bilstm_crf_attention_summary_path'],
@@ -189,18 +189,18 @@ def test_w2v_bilstm_crf_1():
     字w2v + 1层bilstm_crf
     :return:
     '''
-    w2v = KeyedVectors.load_word2vec_format(config['w2v_path'], binary=False)
+    w2v = KeyedVectors(config['w2v_path'])
     wblc_cfg = {
         'logger': logger,
         'train_path': config['train_path'],
         'eval_path': config['eval_path'],
         'w2v': w2v,
-        'max_len': 64,
-        'batch_size': 32,
-        'epoch': 50,
+        'max_len': 50,
+        'batch_size': 64,
+        'epoch': 200,
         'loss': 'adam',
         'rate': 0.01,
-        'dropout': 0.0,
+        'dropout': 0.1,
         'num_units': 200,
         'num_layers': 1,
         'tf_config': tf_config,
@@ -220,19 +220,19 @@ def test_w2v_bilstm_crf_2():
     字w2v + 两层bilstm_crf
     :return:
     '''
-    w2v = KeyedVectors.load_word2vec_format(config['w2v_path'], binary=False)
+    w2v = KeyedVectors.load(config['w2v_path'])
     wblc_cfg = {
         'logger': logger,
         'train_path': config['train_path'],
         'eval_path': config['eval_path'],
         'w2v': w2v,
-        'max_len': 64,
-        'batch_size': 32,
-        'epoch': 50,
-        'loss': 'sgd',
-        'rate': 0.001,
+        'max_len': 50,
+        'batch_size': 64,
+        'epoch': 200,
+        'loss': 'adam',
+        'rate': 0.01,
         'dropout': 0.1,
-        'num_units': 64,
+        'num_units': 200,
         'num_layers': 2,
         'tf_config': tf_config,
         'model_path': config['w2v_bilstm_crf_2_model_path'],
@@ -259,7 +259,7 @@ def test_w2v_bilstm_crf_attention():
         'w2v': w2v,
         'max_len': 50,
         'batch_size': 64,
-        'epoch': 50,
+        'epoch': 200,
         'loss': 'adam',
         'rate': 0.01,
         'dropout': 0.1,
@@ -283,11 +283,11 @@ def test_bert_crf():
         'train_path': config['train_path'],
         'eval_path': config['eval_path'],
         'bert_path': config['bert_path'],
-        'max_length': 52,
-        'batch_size': 1,
+        'max_length': 64,
+        'batch_size': 32,
         'rate': 0.01,
-        'epoch': 50,
-        'loss': 'adam',
+        'epoch': 500,
+        'loss': 'sgd',
         'encoder_layer': 11,
         'tf_config': tf_config,
         'model_path': config['bert_crf_model_path'],
@@ -306,13 +306,13 @@ def test_bert_bilstm_crf():
         'train_path': config['train_path'],
         'eval_path': config['eval_path'],
         'bert_path': config['bert_path'],
-        'max_length': 52,
-        'batch_size': 16,
+        'max_length': 64,
+        'batch_size': 32,
         'rate': 0.01,
-        'num_units': 200,
+        'num_units': 128,
         'dropout': 0.1,
-        'epoch': 50,
-        'loss': 'adam',
+        'epoch': 500,
+        'loss': 'sgd',
         'encoder_layer': 11,
         'tf_config': tf_config,
         'model_path': config['bert_bilstm_crf_model_path'],
@@ -328,11 +328,11 @@ def test_bert_bilstm_crf():
 if __name__ == '__main__':
     # test_ac_match()
     # test_bilstm_crf_1()
-    # test_bilstm_crf_2()
+    test_bilstm_crf_2()
     # test_bilstm_crf_3()
     # test_bilstm_crf_4()
     # test_w2v_bilstm_crf_1()
     # test_w2v_bilstm_crf_2()
     # test_w2v_bilstm_crf_attention()
     # test_bert_crf()
-    test_bert_bilstm_crf()
+    # test_bert_bilstm_crf()
